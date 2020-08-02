@@ -1,4 +1,5 @@
 
+let development = process.env.NODE_ENV !== 'production'
 export default {
   /*
   ** Nuxt rendering mode
@@ -75,7 +76,7 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    baseURL: 'http://127.0.0.1:3333/api/v1'
+    baseURL: development ? 'http://127.0.0.1:3333/api/v1' : 'https://torgo-desk.herokuapp.com/api/v1'
   },
   /*
   ** Build configuration
