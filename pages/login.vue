@@ -7,7 +7,7 @@
             <h5 class="card-title text-center">Sign In</h5>
             <b-alert show variant="danger" v-if="error">{{ error }}</b-alert>
             <form class="form-signin" method="post" @submit.prevent="login">
-              <div class="form-label-group">
+              <div class="form-label-group mb-2">
                 <label for="inputEmail">Email address</label>
                 <input
                   type="email"
@@ -20,7 +20,7 @@
                 />
               </div>
 
-              <div class="form-label-group">
+              <div class="form-label-group mb-2">
                 <label for="inputPassword">Password</label>
                 <input
                   type="password"
@@ -48,6 +48,10 @@
               >
                 Sign in
               </button>
+              <div>
+                Or
+                <nuxt-link to="/register">Sign up</nuxt-link>
+              </div>
             </form>
           </div>
         </div>
@@ -63,7 +67,7 @@ export default {
     return {
       email: "",
       password: "",
-      error: null
+      error: null,
     };
   },
   methods: {
@@ -72,23 +76,15 @@ export default {
         await this.$auth.loginWith("local", {
           data: {
             email: this.email,
-            password: this.password
-          }
+            password: this.password,
+          },
         });
-        this.makeToast();
         this.$router.push("/countries");
       } catch (e) {
         this.error = e.response.data.message;
       }
     },
-    makeToast(variant = null) {
-      this.$bvToast.toast("Toast body content", {
-        title: `Variant ${variant || "default"}`,
-        variant: variant,
-        solid: true
-      });
-    }
-  }
+  },
 };
 </script>
 
