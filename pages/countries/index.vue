@@ -25,7 +25,6 @@
             <!--  Card Header End -->
             <!-- Card Body -->
             <div class="card-body">
-              <b-alert v-if="error" show variant="danger">{{ error }}</b-alert>
               <b-form>
                 <div class="row">
                   <div class="col-xl-3">
@@ -89,7 +88,7 @@
                     <th v-for="(value, key) in headers" :key="key" scope="col">
                       {{ value }}
                     </th>
-                    <th scope="col" style="width: 3%;"></th>
+                    <th scope="col" style="width: 3%"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -118,9 +117,7 @@
                           class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                           aria-labelledby="dropdownMenuLink"
                         >
-                          <div class="dropdown-header">
-                            Speacial Actions
-                          </div>
+                          <div class="dropdown-header">Speacial Actions</div>
                           <a class="dropdown-item" href="#"
                             ><i
                               class="fas fa-plus fa-sm fa-fw mr-2 text-gray-400"
