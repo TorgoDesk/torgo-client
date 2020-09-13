@@ -24,14 +24,14 @@
                 </h6>
               </div>
               <div>
-                <b-button variant="success" size="sm" v-b-modal.country-form
+                <b-button variant="success" size="sm" v-b-modal.city-form
                   ><i class="fas fa-sm fa-fw fa-plus"></i>Edit</b-button
                 >
-                <country-form
+                <city-form
                   :isEdit="true"
                   :item="item"
                   @submited="fetchItem"
-                ></country-form>
+                ></city-form>
               </div>
             </div>
             <div class="card-body" v-if="!detailsCardLoading">
@@ -39,15 +39,11 @@
               <div class="row">
                 <div class="col-xl-2">
                   <label>City</label>
-                  <h5>{{ this.city.name }}</h5>
+                  <h5>{{ this.item.city.name }}</h5>
                 </div>
                 <div class="col-xl-2">
                   <label>Country</label>
-                  <h5>{{ this.country.name }}</h5>
-                </div>
-                <div class="col-xl-2">
-                  <label>Postal Code</label>
-                  <h5>{{ this.city.phone_prefix }}</h5>
+                  <h5>{{ this.item.city.country.name }}</h5>
                 </div>
               </div>
             </div>
@@ -59,11 +55,11 @@
 </template>
 
 <script>
-import CountryForm from "~/components/forms/CountryForm";
+import CityForm from "~/components/forms/CityForm";
 
 export default {
   components: {
-    CountryForm,
+    CityForm,
   },
   data() {
     return {
@@ -76,8 +72,7 @@ export default {
         slug: "cities",
       },
       itemTitles: ["City", "Country", "Postal"],
-      city: null,
-      country: null,
+      item: null,
       error: null,
       detailsCardLoading: true,
     };
@@ -89,13 +84,11 @@ export default {
         const response = await this.$axios.$get(
           "/" + this.pageInfo.slug + "/" + this.id
         );
-        console.log(response);
-        this.city = response.city;
-        this.country = response.country;
+        this.item = response
         this.detailsCardLoading = false;
       } catch (error) {
         this.error = error;
-        this.city = {};
+        this.item = {};
         this.detailsCardLoading = false;
       }
     },

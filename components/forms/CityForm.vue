@@ -29,22 +29,6 @@
           <div class="col-xl-6">
             <b-form-group
               id="input-group-2"
-              label="Postal Code:"
-              label-for="input-2"
-            >
-              <b-form-input
-                id="input-2"
-                v-model="editItem.code"
-                required
-                placeholder="Enter code"
-              ></b-form-input>
-            </b-form-group>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-xl-6">
-            <b-form-group
-              id="input-group-2"
               label="Country:"
               label-for="input-2"
             >
@@ -53,7 +37,11 @@
                 v-model="editItem.country_id"
                 required
                 placeholder="Enter code"
-              ></b-form-select>
+              >
+                <b-form-select-option v-for="country in countries" :value="country.id" :key="country.id">
+                  {{country.name}}
+                </b-form-select-option>
+              </b-form-select>
             </b-form-group>
           </div>
           <div class="col-xl-6"></div>
@@ -86,7 +74,7 @@ export default {
         return {
           id: "",
           name: "",
-          phone_prefix: "",
+          country: "",
           code: "",
           created_at: "",
           updated_at: "",
@@ -104,27 +92,28 @@ export default {
       editItem: {
         id: "",
         name: "",
-        phone_prefix: "",
-        code: "",
+        country_id: "",
         created_at: "",
         updated_at: "",
+        country: {},
       },
       defaultItem: {
         id: "",
         name: "",
-        phone_prefix: "",
-        code: "",
+        country_id: "",
         created_at: "",
         updated_at: "",
+        country: {},
       },
+      countries: null
     };
   },
   computed: {
     modalTitle() {
       if (this.isEdit) {
-        return "Edit Country";
+        return "Edit City";
       } else {
-        return "Create Country";
+        return "Create City";
       }
     },
     submitButton() {
@@ -137,11 +126,23 @@ export default {
   },
   watch: {
     item() {
-      this.editItem = Object.assign({}, this.item);
-      this.defaultItem = Object.assign({}, this.item);
+      this.editItem = Object.assign({}, this.item.city);
+      this.defaultItem = Object.assign({}, this.item.city);
     },
   },
   methods: {
+    async fetchCountries() {
+      console.log("Working")
+      try {
+        const response = await this.$axios.$get(
+          "/" + "countries/list"
+        );
+        this.countries = response;
+      } catch (error) {
+        console.log(error)
+        this.error = error;
+      }
+    },
     cancel() {
       this.show = false;
       this.editItem = Object.assign({}, this.defaultItem);
@@ -149,11 +150,12 @@ export default {
     },
     async submit() {
       if (this.isEdit) {
-        const response = await this.$axios.$put("/countries/" + this.item.id, {
+        const response = await this.$axios.$put("/cities/" + this.item.city.id, {
           ...this.editItem,
         });
       } else {
-        const response = await this.$axios.$post("/countries", {
+        console.log(this.editItem)
+        const response = await this.$axios.$post("/cities", {
           ...this.editItem,
         });
       }
@@ -162,6 +164,9 @@ export default {
       this.$emit("submited");
     },
   },
+  mounted() {
+    this.fetchCountries();
+  }
 };
 </script>
 

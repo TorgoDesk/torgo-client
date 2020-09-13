@@ -72,10 +72,10 @@
               <h6 class="m-0 font-weight-bold text-primary">
                 {{ tableCardInfo.tableTitle }}
               </h6>
-              <b-button variant="success" size="sm" v-b-modal.country-form
+              <b-button variant="success" size="sm" v-b-modal.city-form
                 ><i class="fas fa-sm fa-fw fa-plus"></i>Add New</b-button
               >
-              <country-form @submited="fetchItems"></country-form>
+              <city-form @submited="fetchItems"></city-form>
             </div>
             <!--  Card Header End -->
             <!-- Card Body -->
