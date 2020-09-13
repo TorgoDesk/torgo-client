@@ -10,6 +10,57 @@
   <div class="container-fluid">
     <!-- Content Row -->
     <div class="row">
+      <!-- Card - Search Component -->
+      <div class="col-xl-12">
+        <div class="card shadow mb-4">
+          <!-- Card Header -->
+          <b-overlay :show="tableCardLoading" rounded="sm">
+            <div
+              class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
+            >
+              <h6 class="m-0 font-weight-bold text-primary">
+                {{ searchCardInfo.searchTitle }}
+              </h6>
+            </div>
+            <!--  Card Header End -->
+            <!-- Card Body -->
+            <div class="card-body">
+              <b-form>
+                <div class="row">
+                  <div class="col-xl-3">
+                    <b-form-group
+                      id="input-group-1"
+                      label="City:"
+                      label-for="input-1"
+                    >
+                      <b-form-input
+                        id="input-1"
+                        type="text"
+                        required
+                        size="sm"
+                        v-model="editSearchQuery.name"
+                        placeholder="Enter city name"
+                      ></b-form-input>
+                    </b-form-group>
+                  </div>
+                </div>
+                <b-button variant="success" size="sm" @click="fetchItems"
+                  ><i class="fas fa-sm fa-fw fa-search"></i>Search</b-button
+                >
+                <b-button
+                  variant="primary"
+                  size="sm"
+                  v-if="editSearchQuery.name != ''"
+                  @click="resetQuery"
+                  ><i class="fas fa-sm fa-fw fa-redo-alt"></i>Reset</b-button
+                >
+              </b-form>
+            </div>
+          </b-overlay>
+          <!-- Card Body End -->
+        </div>
+      </div>
+      <!-- Card - Search Component End-->
       <!-- Card - Table Component -->
       <div class="col-xl-12">
         <div class="card shadow mb-4">
@@ -37,7 +88,7 @@
                     <th v-for="(value, key) in headers" :key="key" scope="col">
                       {{ value }}
                     </th>
-                    <th scope="col" style="width: 3%;"></th>
+                    <th scope="col" style="width: 3%"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -66,9 +117,7 @@
                           class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                           aria-labelledby="dropdownMenuLink"
                         >
-                          <div class="dropdown-header">
-                            Speacial Actions
-                          </div>
+                          <div class="dropdown-header">Speacial Actions</div>
                           <a class="dropdown-item" href="#"
                             ><i
                               class="fas fa-plus fa-sm fa-fw mr-2 text-gray-400"
@@ -147,6 +196,15 @@ export default {
       totalItems: 0,
       error: null,
       tableCardLoading: true,
+      searchCardInfo: {
+        searchTitle: "Search Cities",
+      },
+      editSearchQuery: {
+        name: "",
+      },
+      defaultSearchQuery: {
+        name: "",
+      },
     };
   },
   methods: {
@@ -164,7 +222,12 @@ export default {
       try {
         this.tableCardLoading = true;
         const items = await this.$axios.$get(
-          "/" + this.pageInfo.slug + "?page=" + this.currentPage
+          "/" +
+            this.pageInfo.slug +
+            "?page=" +
+            this.currentPage +
+            "&name=" +
+            this.editSearchQuery.name
         );
         this.tableCardLoading = false;
         this.items = items.data;
@@ -174,6 +237,10 @@ export default {
         this.tableCardLoading = false;
         this.error = error;
       }
+    },
+    async resetQuery() {
+      this.editSearchQuery = Object.assign({}, this.defaultSearchQuery);
+      this.fetchItems();
     },
   },
   watch: {
