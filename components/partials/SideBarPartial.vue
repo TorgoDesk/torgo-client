@@ -30,12 +30,10 @@
     <hr class="sidebar-divider" />
 
     <!-- Heading -->
-    <div class="sidebar-heading">
-      Interface
-    </div>
+    <div class="sidebar-heading">Interface</div>
 
     <!-- Nav Item - Dictionaries Collapse Menu -->
-    <li class="nav-item ">
+    <li class="nav-item">
       <a
         class="nav-link"
         href="#"
@@ -49,7 +47,7 @@
       </a>
       <div
         id="collapseBookingMaster"
-        class="collapse "
+        class="collapse"
         aria-labelledby="headingPages"
         data-parent="#accordionSidebar"
       >
@@ -101,9 +99,7 @@
     <hr class="sidebar-divider" />
 
     <!-- Heading -->
-    <div class="sidebar-heading">
-      Advanced
-    </div>
+    <div class="sidebar-heading">Advanced</div>
 
     <!-- Nav Item - Dictionaries Collapse Menu -->
     <li class="nav-item active">
@@ -186,22 +182,23 @@ export default {
     return {
       bookings: [
         { name: "Custom Booking", link: "/cities" },
-        { name: "Package Booking", link: "/countries" }
+        { name: "Package Booking", link: "/countries" },
       ],
       dictionaries: [
         { name: "Cities", link: "/cities" },
         { name: "Countries", link: "/countries" },
+        { name: "Hotels", link: "/hotels" },
         { name: "Nationalities", link: "/nationalities" },
-        { name: "Curencies", link: "/curencies" }
+        { name: "Curencies", link: "/curencies" },
       ],
       organization: [
         { name: "Employees", link: "/employees" },
         { name: "Company Information", link: "/company-information" },
         { name: "Roles & Rights", link: "/roles-and-rights" },
-        { name: "Departments", link: "/departments" }
-      ]
+        { name: "Departments", link: "/departments" },
+      ],
     };
-  }
+  },
 };
 </script>
 
