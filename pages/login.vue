@@ -6,7 +6,7 @@
           <div class="card-body">
             <h5 class="card-title text-center">Sign In</h5>
             <b-alert show variant="danger" v-if="error">{{ error }}</b-alert>
-            <form class="form-signin" method="post" @submit.prevent="login">
+            <form class="form-signin" method="post" @submit.prevent="loginWithCredentials">
               <div class="form-label-group mb-2">
                 <label for="inputEmail">Email address</label>
                 <input
@@ -49,10 +49,12 @@
                 Sign in
               </button>
               <div>
-                Or
+                Click here to
                 <nuxt-link to="/register">Sign up</nuxt-link>
               </div>
             </form>
+            <div class="login-choice"><span>or Sign In with</span></div>
+            <SocialLogin />
           </div>
         </div>
       </div>
@@ -61,8 +63,13 @@
 </template>
 
 <script>
+import SocialLogin from '@/components/SocialLogin'
 export default {
   layout: "auth",
+  middleware: "guest",
+  components: {
+    SocialLogin
+  },
   data() {
     return {
       email: "",
@@ -71,7 +78,7 @@ export default {
     };
   },
   methods: {
-    async login() {
+    async loginWithCredentials() {
       try {
         await this.$auth.loginWith("local", {
           data: {

@@ -8,13 +8,13 @@
             <b-alert show variant="danger" v-if="error">{{ error }}</b-alert>
             <form class="form-signin" method="post" @submit.prevent="register">
               <div class="form-label-group mb-2">
-                <label for="inputEmail">User Name</label>
+                <label for="inputName">Full Name</label>
                 <input
                   type="text"
-                  id="inputEmail"
+                  id="inputName"
                   class="form-control"
-                  placeholder="Username"
-                  v-model="username"
+                  placeholder="Full Name"
+                  v-model="name"
                   required
                   autofocus
                 />
@@ -65,11 +65,13 @@
 <script>
 export default {
   layout: "auth",
+  middleware: "guest",
   data() {
     return {
       username: "",
       email: "",
       password: "",
+      external_type: "NATIVE",
       error: null,
     };
   },
@@ -77,7 +79,7 @@ export default {
     async register() {
       try {
         await this.$axios.post("register", {
-          username: this.username,
+          name: this.name,
           email: this.email,
           password: this.password,
         });

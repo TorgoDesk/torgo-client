@@ -15,10 +15,10 @@
             <h6 class="m-0 font-weight-bold">Basic Information</h6>
             <div class="row">
               <div class="col-xl-3">
-                <p class="font-weight-bold">Username :</p>
+                <p class="font-weight-bold">Full Name :</p>
               </div>
               <div class="col-xl-3">
-                <p>{{ loggedInUser.username }}</p>
+                <p>{{ loggedInUser.name }}</p>
               </div>
               <div class="col-xl-3">
                 <p class="font-weight-bold">Email Address :</p>

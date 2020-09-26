@@ -50,6 +50,7 @@ export default {
   ** https://nuxtjs.org/guide/plugins
   */
   plugins: [
+    '~plugins/axios.js'
   ],
   /*
   ** Auto import components
@@ -93,7 +94,11 @@ export default {
           user: { url: 'me', method: 'get', propertyName: 'data' },
           logout: false
         }
-      }
-    }
+      },
+      google: {
+        client_id: '219658332401-ae7gcsb4dd28r692vrhaq6i3c4hdmt0j.apps.googleusercontent.com'
+      },
+    },
+    plugins: ['~plugins/auth.js']
   }
 }
