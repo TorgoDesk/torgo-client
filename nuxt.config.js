@@ -99,6 +99,11 @@ export default {
         client_id: '219658332401-ae7gcsb4dd28r692vrhaq6i3c4hdmt0j.apps.googleusercontent.com'
       },
     },
-    plugins: ['~plugins/auth.js']
+    plugins: ['~plugins/auth.js'],
+    redirect: {
+      login: '/login',
+      logout: '/login',
+      home: '/countries',
+    },
   }
 }
