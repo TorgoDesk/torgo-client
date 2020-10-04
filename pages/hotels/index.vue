@@ -75,7 +75,7 @@
               <b-button variant="success" size="sm" v-b-modal.country-form
                 ><i class="fas fa-sm fa-fw fa-plus"></i>Add New</b-button
               >
-              <country-form @submited="fetchItems"></country-form>
+              <hotel-form @sumited="fetchItems"></hotel-form>
             </div>
             <!--  Card Header End -->
             <!-- Card Body -->
@@ -185,11 +185,11 @@
 </template>
 
 <script>
-import CountryForm from "~/components/forms/CountryForm";
+import HotelForm from "~/components/forms/HotelForm";
 export default {
   middleware: "auth",
   components: {
-    CountryForm,
+    HotelForm,
   },
   data() {
     return {

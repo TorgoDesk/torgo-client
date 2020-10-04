@@ -27,11 +27,11 @@
                 <b-button variant="success" size="sm" v-b-modal.country-form
                   ><i class="fas fa-sm fa-fw fa-plus"></i>Edit</b-button
                 >
-                <country-form
+                <hotel-form
                   :isEdit="true"
                   :item="item"
                   @submited="fetchItem"
-                ></country-form>
+                ></hotel-form>
               </div>
             </div>
             <div class="card-body" v-if="!detailsCardLoading">
@@ -75,11 +75,11 @@
 </template>
 
 <script>
-import CountryForm from "~/components/forms/CountryForm";
+import HotelForm from "~/components/forms/HotelForm";
 
 export default {
   components: {
-    CountryForm,
+    HotelForm,
   },
   data() {
     return {
