@@ -75,7 +75,7 @@
               <b-button variant="success" size="sm" v-b-modal.country-form
                 ><i class="fas fa-sm fa-fw fa-plus"></i>Add New</b-button
               >
-              <hotel-form @sumited="fetchItems"></hotel-form>
+              <hotel-form @submited="fetchItems"></hotel-form>
             </div>
             <!--  Card Header End -->
             <!-- Card Body -->
