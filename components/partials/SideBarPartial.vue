@@ -20,9 +20,8 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">
-      <a class="nav-link" href="index.html">
-        <i class="fas fa-fw fa-tachometer-alt"></i>
-        <span>Dashboard</span></a
+      <nuxt-link class="nav-link" to="/"
+        ><i class="fas fa-fw fa-columns"></i> <span>Dashboard</span></nuxt-link
       >
     </li>
 

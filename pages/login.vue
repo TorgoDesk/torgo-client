@@ -6,7 +6,11 @@
           <div class="card-body">
             <h5 class="card-title text-center">Sign In</h5>
             <b-alert show variant="danger" v-if="error">{{ error }}</b-alert>
-            <form class="form-signin" method="post" @submit.prevent="loginWithCredentials">
+            <form
+              class="form-signin"
+              method="post"
+              @submit.prevent="loginWithCredentials"
+            >
               <div class="form-label-group mb-2">
                 <label for="inputEmail">Email address</label>
                 <input
@@ -63,12 +67,12 @@
 </template>
 
 <script>
-import SocialLogin from '@/components/SocialLogin'
+import SocialLogin from "@/components/SocialLogin";
 export default {
   layout: "auth",
   middleware: "guest",
   components: {
-    SocialLogin
+    SocialLogin,
   },
   data() {
     return {
@@ -86,7 +90,7 @@ export default {
             password: this.password,
           },
         });
-        this.$router.push("/countries");
+        this.$router.push("/");
       } catch (e) {
         this.error = e.response.data.message;
       }

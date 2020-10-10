@@ -91,7 +91,7 @@ export default {
           },
         });
 
-        this.$router.push("/countries");
+        this.$router.push("/");
       } catch (e) {
         this.error = e.response.data.error.message;
       }

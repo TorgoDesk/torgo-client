@@ -107,7 +107,7 @@
                 <div
                   class="text-xs font-weight-bold text-warning text-uppercase mb-1"
                 >
-                  Pending Requests
+                  Pending Bookings
                 </div>
                 <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
               </div>
@@ -156,11 +156,7 @@
             </div>
           </div>
           <!-- Card Body -->
-          <div class="card-body">
-            <div class="chart-area">
-              <canvas id="myAreaChart"></canvas>
-            </div>
-          </div>
+          <div class="card-body"></div>
         </div>
       </div>
 
@@ -198,9 +194,11 @@
           </div>
           <!-- Card Body -->
           <div class="card-body">
-            <div class="chart-pie pt-4 pb-2">
-              <canvas id="myPieChart"></canvas>
-            </div>
+            <pie-chart
+              class="chart-pie pt-4 pb-2"
+              :options="pieOptions"
+              :chartData="pieData"
+            ></pie-chart>
             <div class="mt-4 text-center small">
               <span class="mr-2">
                 <i class="fas fa-circle text-primary"></i> Direct
@@ -294,74 +292,6 @@
             </div>
           </div>
         </div>
-
-        <!-- Color System -->
-        <div class="row">
-          <div class="col-lg-6 mb-4">
-            <div class="card bg-primary text-white shadow">
-              <div class="card-body">
-                Primary
-                <div class="text-white-50 small">#4e73df</div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6 mb-4">
-            <div class="card bg-success text-white shadow">
-              <div class="card-body">
-                Success
-                <div class="text-white-50 small">#1cc88a</div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6 mb-4">
-            <div class="card bg-info text-white shadow">
-              <div class="card-body">
-                Info
-                <div class="text-white-50 small">#36b9cc</div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6 mb-4">
-            <div class="card bg-warning text-white shadow">
-              <div class="card-body">
-                Warning
-                <div class="text-white-50 small">#f6c23e</div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6 mb-4">
-            <div class="card bg-danger text-white shadow">
-              <div class="card-body">
-                Danger
-                <div class="text-white-50 small">#e74a3b</div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6 mb-4">
-            <div class="card bg-secondary text-white shadow">
-              <div class="card-body">
-                Secondary
-                <div class="text-white-50 small">#858796</div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6 mb-4">
-            <div class="card bg-light text-black shadow">
-              <div class="card-body">
-                Light
-                <div class="text-black-50 small">#f8f9fc</div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6 mb-4">
-            <div class="card bg-dark text-white shadow">
-              <div class="card-body">
-                Dark
-                <div class="text-white-50 small">#5a5c69</div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
 
       <div class="col-lg-6 mb-4">
@@ -375,7 +305,7 @@
               <img
                 class="img-fluid px-3 px-sm-4 mt-3 mb-4"
                 style="width: 25rem"
-                src="img/undraw_posting_photo.svg"
+                src="~/assets/img/undraw_posting_photo.svg"
                 alt=""
               />
             </div>
@@ -391,27 +321,6 @@
             >
           </div>
         </div>
-
-        <!-- Approach -->
-        <div class="card shadow mb-4">
-          <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">
-              Development Approach
-            </h6>
-          </div>
-          <div class="card-body">
-            <p>
-              SB Admin 2 makes extensive use of Bootstrap 4 utility classes in
-              order to reduce CSS bloat and poor page performance. Custom CSS
-              classes are used to create custom components and custom utility
-              classes.
-            </p>
-            <p class="mb-0">
-              Before working with this theme, you should become familiar with
-              the Bootstrap framework, especially the utility classes.
-            </p>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -421,14 +330,46 @@
 <script>
 import SideBarPartial from "~/components/partials/SideBarPartial";
 import NavBarPartial from "~/components/partials/NavBarPartial";
+import PieChart from "~/components/charts/PieChart";
 export default {
   middleware: "auth",
   components: {
     SideBarPartial,
     NavBarPartial,
+    PieChart,
   },
   data() {
-    return {};
+    return {
+      pieOptions: {
+        responsive: true,
+        maintainAspectRatio: false,
+        tooltips: {
+          backgroundColor: "rgb(255,255,255)",
+          bodyFontColor: "#858796",
+          borderColor: "#dddfeb",
+          borderWidth: 1,
+          xPadding: 15,
+          yPadding: 15,
+          displayColors: false,
+          caretPadding: 10,
+        },
+        legend: {
+          display: false,
+        },
+        cutoutPercentage: 80,
+      },
+      pieData: {
+        labels: ["Won", "Lost", "Ongoing"],
+        datasets: [
+          {
+            data: [55, 30, 15],
+            backgroundColor: ["#4e73df", "#1cc88a", "#36b9cc"],
+            hoverBackgroundColor: ["#2e59d9", "#17a673", "#2c9faf"],
+            hoverBorderColor: "rgba(234, 236, 244, 1)",
+          },
+        ],
+      },
+    };
   },
   methods: {},
   mounted() {},
