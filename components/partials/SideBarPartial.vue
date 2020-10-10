@@ -126,7 +126,10 @@
             :key="index"
             class="collapse-item"
             :to="item.link"
-            >{{ item.name }}</nuxt-link
+            ><span :class="item.colorClass"
+              ><i :class="item.iconClass"></i
+            ></span>
+            {{ item.name }}</nuxt-link
           >
         </div>
       </div>
@@ -142,7 +145,7 @@
         aria-expanded="false"
         aria-controls="collapsePages"
       >
-        <i class="fas fa-fw fa-folder"></i>
+        <i class="fas fa-fw fa-couch"></i>
         <span>Organization</span>
       </a>
       <div
@@ -158,7 +161,10 @@
             :key="index"
             class="collapse-item"
             :to="item.link"
-            >{{ item.name }}</nuxt-link
+            ><span :class="item.colorClass"
+              ><i :class="item.iconClass"></i
+            ></span>
+            {{ item.name }}</nuxt-link
           >
         </div>
       </div>
@@ -184,17 +190,62 @@ export default {
         { name: "Package Booking", link: "/countries" },
       ],
       dictionaries: [
-        { name: "Cities", link: "/cities" },
-        { name: "Countries", link: "/countries" },
-        { name: "Hotels", link: "/hotels" },
-        { name: "Nationalities", link: "/nationalities" },
-        { name: "Curencies", link: "/curencies" },
+        {
+          name: "Cities",
+          link: "/cities",
+          iconClass: "fas fa-fw fa-city",
+          colorClass: "badge badge-primary",
+        },
+        {
+          name: "Countries",
+          link: "/countries",
+          iconClass: "fas fa-fw fa-globe-americas",
+          colorClass: "badge badge-primary",
+        },
+        {
+          name: "Hotels",
+          link: "/hotels",
+          iconClass: "fas fa-fw fa-hotel",
+          colorClass: "badge badge-primary",
+        },
+        {
+          name: "Nationalities",
+          link: "/nationalities",
+          iconClass: "fas fa-fw fa-users",
+          colorClass: "badge badge-primary",
+        },
+        {
+          name: "Curencies",
+          link: "/curencies",
+          iconClass: "fas fa-fw fa-coins",
+          colorClass: "badge badge-primary",
+        },
       ],
       organization: [
-        { name: "Employees", link: "/employees" },
-        { name: "Company Information", link: "/company-information" },
-        { name: "Roles & Rights", link: "/roles-and-rights" },
-        { name: "Departments", link: "/departments" },
+        {
+          name: "Employees",
+          link: "/employees",
+          iconClass: "fas fa-fw fa-users",
+          colorClass: "badge badge-primary",
+        },
+        {
+          name: "Company Information",
+          link: "/company-information",
+          iconClass: "fas fa-fw fa-building",
+          colorClass: "badge badge-primary",
+        },
+        {
+          name: "Roles & Rights",
+          link: "/roles-and-rights",
+          iconClass: "fas fa-fw fa-user-tag",
+          colorClass: "badge badge-primary",
+        },
+        {
+          name: "Departments",
+          link: "/departments",
+          iconClass: "fas fa-fw fa-mail-bulk",
+          colorClass: "badge badge-primary",
+        },
       ],
     };
   },
