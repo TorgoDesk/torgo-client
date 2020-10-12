@@ -19,7 +19,7 @@
           variant="danger"
           dismissible
         >
-          You seems to be offline! Some features may not work proprerly.
+          You seem to be offline! Some features may not work properly.
         </b-alert>
       </div>
       <!-- Footer -->
