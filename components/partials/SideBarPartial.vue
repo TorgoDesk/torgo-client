@@ -19,9 +19,10 @@
     <hr class="sidebar-divider my-0" />
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item">
-      <nuxt-link class="nav-link" to="/"
-        ><i class="fas fa-fw fa-columns"></i> <span>Dashboard</span></nuxt-link
+    <li :class="'nav-item ' + linkActive(dashboard.link).activeClass">
+      <nuxt-link class="nav-link" :to="dashboard.link"
+        ><i class="fas fa-fw fa-columns"></i>
+        <span>{{ dashboard.name }}</span></nuxt-link
       >
     </li>
 
@@ -42,7 +43,7 @@
         aria-controls="collapsePages"
       >
         <i class="fas fa-fw fa-folder"></i>
-        <span>Bookings Master</span>
+        <span>{{ bookingsMaster.name }}</span>
       </a>
       <div
         id="collapseBookingMaster"
@@ -53,7 +54,7 @@
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">Bookings:</h6>
           <nuxt-link
-            v-for="(item, index) in bookings"
+            v-for="(item, index) in bookingsMaster.subItems"
             :key="index"
             class="collapse-item"
             :to="item.link"
@@ -101,7 +102,7 @@
     <div class="sidebar-heading">Advanced</div>
 
     <!-- Nav Item - Dictionaries Collapse Menu -->
-    <li class="nav-item active">
+    <li class="nav-item">
       <a
         class="nav-link"
         href="#"
@@ -111,7 +112,7 @@
         aria-controls="collapsePages"
       >
         <i class="fas fa-fw fa-folder"></i>
-        <span>Dictionaries</span>
+        <span>{{ dictionaries.name }}</span>
       </a>
       <div
         id="collapsePages"
@@ -122,7 +123,7 @@
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">Globals:</h6>
           <nuxt-link
-            v-for="(item, index) in dictionaries"
+            v-for="(item, index) in dictionaries.subItems"
             :key="index"
             class="collapse-item"
             :to="item.link"
@@ -185,69 +186,91 @@
 export default {
   data() {
     return {
-      bookings: [
-        { name: "Custom Booking", link: "/cities" },
-        { name: "Package Booking", link: "/countries" },
-      ],
-      dictionaries: [
-        {
-          name: "Cities",
-          link: "/cities",
-          iconClass: "fas fa-fw fa-city",
-          colorClass: "badge badge-primary",
-        },
-        {
-          name: "Countries",
-          link: "/countries",
-          iconClass: "fas fa-fw fa-globe-americas",
-          colorClass: "badge badge-primary",
-        },
-        {
-          name: "Hotels",
-          link: "/hotels",
-          iconClass: "fas fa-fw fa-hotel",
-          colorClass: "badge badge-primary",
-        },
-        {
-          name: "Nationalities",
-          link: "/nationalities",
-          iconClass: "fas fa-fw fa-users",
-          colorClass: "badge badge-primary",
-        },
-        {
-          name: "Curencies",
-          link: "/curencies",
-          iconClass: "fas fa-fw fa-coins",
-          colorClass: "badge badge-primary",
-        },
-      ],
+      dashboard: { name: "Dashboard", link: "/" },
+      bookingsMaster: {
+        name: "Bookings Master",
+        subItems: [
+          { name: "Custom Booking", link: "/error/wip" },
+          { name: "Package Booking", link: "/error/wip" },
+        ],
+      },
+      dictionaries: {
+        name: "Dictionaries",
+        subItems: [
+          {
+            name: "Cities",
+            link: "/cities",
+            iconClass: "fas fa-fw fa-city",
+            colorClass: "badge badge-primary",
+          },
+          {
+            name: "Countries",
+            link: "/countries",
+            iconClass: "fas fa-fw fa-globe-americas",
+            colorClass: "badge badge-primary",
+          },
+          {
+            name: "Hotels",
+            link: "/hotels",
+            iconClass: "fas fa-fw fa-hotel",
+            colorClass: "badge badge-primary",
+          },
+          {
+            name: "Nationalities",
+            link: "/error/wip",
+            iconClass: "fas fa-fw fa-users",
+            colorClass: "badge badge-primary",
+          },
+          {
+            name: "Curencies",
+            link: "/error/wip",
+            iconClass: "fas fa-fw fa-coins",
+            colorClass: "badge badge-primary",
+          },
+        ],
+      },
       organization: [
         {
           name: "Employees",
-          link: "/employees",
+          link: "/error/wip",
           iconClass: "fas fa-fw fa-users",
           colorClass: "badge badge-primary",
         },
         {
           name: "Company Information",
-          link: "/company-information",
+          link: "/error/wip",
           iconClass: "fas fa-fw fa-building",
           colorClass: "badge badge-primary",
         },
         {
           name: "Roles & Rights",
-          link: "/roles-and-rights",
+          link: "/error/wip",
           iconClass: "fas fa-fw fa-user-tag",
           colorClass: "badge badge-primary",
         },
         {
           name: "Departments",
-          link: "/departments",
+          link: "/error/wip",
           iconClass: "fas fa-fw fa-mail-bulk",
           colorClass: "badge badge-primary",
         },
       ],
     };
+  },
+  methods: {
+    linkActive(path) {
+      var active = "active";
+      if (this.$route.path === path) {
+        console.log(active);
+        return {
+          activeClass: "active",
+        };
+      } else {
+        return {
+          activeClass: "",
+        };
+      }
+    },
   },
 };
 </script>
