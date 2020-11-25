@@ -8,6 +8,7 @@
   <p>
 
 ![Website](https://img.shields.io/website?url=https%3A%2F%2Ftorgo.netlify.app%2F)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/680894d1-bca4-48cd-9610-b6614b426224/deploy-status)](https://app.netlify.com/sites/torgo/deploys)
 
   </p>
   <p>
