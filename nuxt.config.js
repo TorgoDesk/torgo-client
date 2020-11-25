@@ -105,5 +105,9 @@ export default {
       logout: '/login',
       home: '/countries',
     },
+  },
+
+  generate: {
+    fallback: true
   }
 }
