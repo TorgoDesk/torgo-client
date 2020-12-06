@@ -39,11 +39,11 @@
               <div class="row">
                 <div class="col-xl-2">
                   <label>City</label>
-                  <h5>{{ this.item.city.name }}</h5>
+                  <h5>{{ item.city.name }}</h5>
                 </div>
                 <div class="col-xl-2">
                   <label>Country</label>
-                  <h5>{{ this.item.city.country.name }}</h5>
+                  <h5 v-if="item.city.country">{{ item.city.country.name }}</h5>
                 </div>
               </div>
             </div>
@@ -84,7 +84,7 @@ export default {
         const response = await this.$axios.$get(
           "/" + this.pageInfo.slug + "/" + this.id
         );
-        this.item = response
+        this.item = response;
         this.detailsCardLoading = false;
       } catch (error) {
         this.error = error;

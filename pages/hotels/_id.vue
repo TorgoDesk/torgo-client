@@ -55,11 +55,11 @@
                 </div>
                 <div class="col-xl-2">
                   <label>City</label>
-                  <h5>{{ this.item.city.name }}</h5>
+                  <h5 v-if="item.city">{{ this.item.city.name }}</h5>
                 </div>
                 <div class="col-xl-2">
                   <label>Country</label>
-                  <h5>{{ this.item.country.name }}</h5>
+                  <h5 v-if="item.country">{{ this.item.country.name }}</h5>
                 </div>
                 <div class="col-xl-2">
                   <label>Website</label>

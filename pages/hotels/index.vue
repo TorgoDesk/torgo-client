@@ -37,14 +37,17 @@
                   </td>
                   <td>
                     <nuxt-link
+                      v-if="item.country"
                       :to="'/' + 'countries' + '/' + item.country.id"
                       >{{ item.country.name }}</nuxt-link
                     >
                   </td>
                   <td>
-                    <nuxt-link :to="'/' + 'cities' + '/' + item.city.id">{{
-                      item.city.name
-                    }}</nuxt-link>
+                    <nuxt-link
+                      v-if="item.city"
+                      :to="'/' + 'cities' + '/' + item.city.id"
+                      >{{ item.city.name }}</nuxt-link
+                    >
                   </td>
                   <td>
                     <div class="dropdown no-arrow">

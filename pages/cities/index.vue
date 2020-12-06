@@ -37,6 +37,13 @@
                     }}</nuxt-link>
                   </td>
                   <td>
+                    <nuxt-link
+                      v-if="item.country"
+                      :to="'/' + 'countries' + '/' + item.country.id"
+                      >{{ item.country.name }}</nuxt-link
+                    >
+                  </td>
+                  <td>
                     <div class="dropdown no-arrow">
                       <a
                         class="dropdown-toggle"
@@ -127,7 +134,7 @@ export default {
       tableCardInfo: {
         tableTitle: "Cities List",
       },
-      headers: ["City"],
+      headers: ["City", "Country"],
       items: null,
       show: true,
       currentPage: 1,
