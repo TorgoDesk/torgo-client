@@ -5,8 +5,10 @@
     id="hotel-form"
     centered
     no-fade
-    size="xl"
+    size="lg"
     :title="modalTitle"
+    :header-bg-variant="'primary'"
+    :header-text-variant="'white'"
   >
     <template v-slot:default>
       <b-form>
@@ -21,6 +23,7 @@
                 id="input-1"
                 v-model="editItem.name"
                 type="text"
+                size="sm"
                 required
                 placeholder="Enter hotel name"
               ></b-form-input>
@@ -36,6 +39,7 @@
                 id="input-2"
                 v-model="editItem.telephone"
                 required
+                size="sm"
                 placeholder="Enter telephone number"
               ></b-form-input>
             </b-form-group>
@@ -48,6 +52,7 @@
                 id="input-2"
                 v-model="editItem.email"
                 required
+                size="sm"
                 placeholder="Enter email"
               ></b-form-input>
             </b-form-group>
@@ -62,6 +67,7 @@
                 id="input-2"
                 v-model="editItem.website"
                 required
+                size="sm"
                 placeholder="Enter website"
               ></b-form-input>
             </b-form-group>
@@ -74,6 +80,7 @@
                 id="input-2"
                 v-model="editItem.city_id"
                 required
+                size="sm"
                 placeholder="Enter code"
               >
                 <b-form-select-option
@@ -96,6 +103,7 @@
                 id="input-2"
                 v-model="editItem.country_id"
                 required
+                size="sm"
                 placeholder="Enter code"
               >
                 <b-form-select-option
@@ -122,6 +130,7 @@
                 v-model="editItem.address"
                 placeholder="Enter something..."
                 rows="3"
+                size="sm"
                 max-rows="6"
               ></b-form-textarea>
             </b-form-group>

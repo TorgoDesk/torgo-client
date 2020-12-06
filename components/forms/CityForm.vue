@@ -5,8 +5,10 @@
     id="city-form"
     centered
     no-fade
-    size="xl"
+    size="lg"
     :title="modalTitle"
+    :header-bg-variant="'primary'"
+    :header-text-variant="'white'"
   >
     <template v-slot:default>
       <b-form>
@@ -21,6 +23,7 @@
                 id="input-1"
                 v-model="editItem.name"
                 type="text"
+                size="sm"
                 required
                 placeholder="Enter city name"
               ></b-form-input>
@@ -36,10 +39,15 @@
                 id="input-2"
                 v-model="editItem.country_id"
                 required
+                size="sm"
                 placeholder="Enter code"
               >
-                <b-form-select-option v-for="country in countries" :value="country.id" :key="country.id">
-                  {{country.name}}
+                <b-form-select-option
+                  v-for="country in countries"
+                  :value="country.id"
+                  :key="country.id"
+                >
+                  {{ country.name }}
                 </b-form-select-option>
               </b-form-select>
             </b-form-group>
@@ -105,7 +113,7 @@ export default {
         updated_at: "",
         country: {},
       },
-      countries: null
+      countries: null,
     };
   },
   computed: {
@@ -132,14 +140,12 @@ export default {
   },
   methods: {
     async fetchCountries() {
-      console.log("Working")
+      console.log("Working");
       try {
-        const response = await this.$axios.$get(
-          "/" + "countries/list"
-        );
+        const response = await this.$axios.$get("/" + "countries/list");
         this.countries = response;
       } catch (error) {
-        console.log(error)
+        console.log(error);
         this.error = error;
       }
     },
@@ -150,11 +156,14 @@ export default {
     },
     async submit() {
       if (this.isEdit) {
-        const response = await this.$axios.$put("/cities/" + this.item.city.id, {
-          ...this.editItem,
-        });
+        const response = await this.$axios.$put(
+          "/cities/" + this.item.city.id,
+          {
+            ...this.editItem,
+          }
+        );
       } else {
-        console.log(this.editItem)
+        console.log(this.editItem);
         const response = await this.$axios.$post("/cities", {
           ...this.editItem,
         });
@@ -166,7 +175,7 @@ export default {
   },
   mounted() {
     this.fetchCountries();
-  }
+  },
 };
 </script>
 

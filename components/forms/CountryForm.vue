@@ -5,8 +5,10 @@
     id="country-form"
     centered
     no-fade
-    size="xl"
+    size="lg"
     :title="modalTitle"
+    :header-bg-variant="'primary'"
+    :header-text-variant="'white'"
   >
     <template v-slot:default>
       <b-form>
@@ -21,6 +23,7 @@
                 id="input-1"
                 v-model="editItem.name"
                 type="text"
+                size="sm"
                 required
                 placeholder="Enter country name"
               ></b-form-input>
@@ -36,6 +39,7 @@
                 id="input-2"
                 v-model="editItem.code"
                 required
+                size="sm"
                 placeholder="Enter code"
               ></b-form-input>
             </b-form-group>
@@ -52,6 +56,7 @@
                 id="input-2"
                 v-model="editItem.phone_prefix"
                 required
+                size="sm"
                 placeholder="Enter code"
               ></b-form-input>
             </b-form-group>
