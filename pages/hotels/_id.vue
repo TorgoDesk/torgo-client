@@ -24,7 +24,7 @@
                 </h6>
               </div>
               <div>
-                <b-button variant="success" size="sm" v-b-modal.country-form
+                <b-button variant="success" size="sm" v-b-modal.hotel-form
                   ><i class="fas fa-sm fa-fw fa-plus"></i>Edit</b-button
                 >
                 <hotel-form

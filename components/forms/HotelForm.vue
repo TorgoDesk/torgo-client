@@ -2,7 +2,7 @@
   <!-- Form Modal -->
   <b-modal
     v-model="show"
-    id="country-form"
+    id="hotel-form"
     centered
     no-fade
     size="xl"
