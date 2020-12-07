@@ -216,15 +216,9 @@ export default {
             colorClass: "badge badge-primary",
           },
           {
-            name: "Nationalities",
-            link: "/error/wip",
+            name: "Leads",
+            link: "/leads",
             iconClass: "fas fa-fw fa-users",
-            colorClass: "badge badge-primary",
-          },
-          {
-            name: "Curencies",
-            link: "/error/wip",
-            iconClass: "fas fa-fw fa-coins",
             colorClass: "badge badge-primary",
           },
         ],
