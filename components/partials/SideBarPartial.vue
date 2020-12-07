@@ -221,6 +221,12 @@ export default {
             iconClass: "fas fa-fw fa-users",
             colorClass: "badge badge-primary",
           },
+          {
+            name: "Room Types",
+            link: "/room-types",
+            iconClass: "fas fa-fw fa-person-booth",
+            colorClass: "badge badge-primary",
+          },
         ],
       },
       organization: [
