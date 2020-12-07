@@ -232,7 +232,7 @@ export default {
       organization: [
         {
           name: "Employees",
-          link: "/error/wip",
+          link: "/employees",
           iconClass: "fas fa-fw fa-users",
           colorClass: "badge badge-primary",
         },
