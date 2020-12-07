@@ -25,7 +25,7 @@
               </div>
               <div>
                 <b-button variant="success" size="sm" v-b-modal.hotel-form
-                  ><i class="fas fa-sm fa-fw fa-plus"></i>Edit</b-button
+                  ><i class="fas fa-sm fa-fw fa-edit"></i> Edit</b-button
                 >
                 <hotel-form
                   :isEdit="true"
