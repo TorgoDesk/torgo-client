@@ -48,7 +48,7 @@
                   Users joined (Native)
                 </div>
                 <div class="h5 mb-0 font-weight-bold text-gray-800">
-                  {{userMetrics.native}}
+                  {{ userMetrics.native }}
                 </div>
               </div>
               <div class="col-auto">
@@ -61,17 +61,17 @@
 
       <!-- Users signed in with OAuth platforms -->
       <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-success shadow h-100 py-2">
+        <div class="card border-left-danger shadow h-100 py-2">
           <div class="card-body">
             <div class="row no-gutters align-items-center">
               <div class="col mr-2">
                 <div
-                  class="text-xs font-weight-bold text-success text-uppercase mb-1"
+                  class="text-xs font-weight-bold text-danger text-uppercase mb-1"
                 >
                   Users joined (Google)
                 </div>
                 <div class="h5 mb-0 font-weight-bold text-gray-800">
-                  {{userMetrics.google}}
+                  {{ userMetrics.google }}
                 </div>
               </div>
               <div class="col-auto">
@@ -84,17 +84,17 @@
 
       <!-- Users signed in with OAuth platforms -->
       <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-success shadow h-100 py-2">
+        <div class="card border-left-primary shadow h-100 py-2">
           <div class="card-body">
             <div class="row no-gutters align-items-center">
               <div class="col mr-2">
                 <div
-                  class="text-xs font-weight-bold text-success text-uppercase mb-1"
+                  class="text-xs font-weight-bold text-primary text-uppercase mb-1"
                 >
                   Users joined (Facebook)
                 </div>
                 <div class="h5 mb-0 font-weight-bold text-gray-800">
-                  {{userMetrics.facebook}}
+                  {{ userMetrics.facebook }}
                 </div>
               </div>
               <div class="col-auto">
@@ -189,13 +189,13 @@
             ></pie-chart>
             <div class="mt-4 text-center small">
               <span class="mr-2">
-                <i class="fas fa-circle text-primary"></i>  Native
+                <i class="fas fa-circle text-success"></i> Native
               </span>
               <span class="mr-2">
-                <i class="fas fa-circle text-success"></i> Google
+                <i class="fas fa-circle text-danger"></i> Google
               </span>
               <span class="mr-2">
-                <i class="fas fa-circle text-info"></i> Facebook
+                <i class="fas fa-circle text-primary"></i> Facebook
               </span>
             </div>
           </div>
@@ -242,30 +242,34 @@ export default {
         cutoutPercentage: 80,
       },
       pieData: {},
-      userMetrics : {
-        total : 0,
-        native : 0,
-        google : 0,
-        facebook : 0,
-      }
+      userMetrics: {
+        total: 0,
+        native: 0,
+        google: 0,
+        facebook: 0,
+      },
     };
   },
   methods: {
     async fetchItems() {
       try {
         this.userMetrics = await this.$axios.$get(
-          "/" +
-          this.pageInfo.slug +
-          "/metrics"
+          "/" + this.pageInfo.slug + "/metrics"
         );
         this.pieData = {
           labels: ["Native", "Google", "Facebook"],
-          datasets:[{
-            data: [this.userMetrics.native, this.userMetrics.google, this.userMetrics.facebook],
-            backgroundColor: ["#4e73df", "#1cc88a", "#36b9cc"],
-            hoverBackgroundColor: ["#2e59d9", "#17a673", "#2c9faf"],
-            hoverBorderColor: "rgba(234, 236, 244, 1)",
-          }],
+          datasets: [
+            {
+              data: [
+                this.userMetrics.native,
+                this.userMetrics.google,
+                this.userMetrics.facebook,
+              ],
+              backgroundColor: ["#1cc88a", "#e74a3b", "#4e73df"],
+              hoverBackgroundColor: ["#17a673", "#c43e31", "#2e59d9"],
+              hoverBorderColor: "rgba(234, 236, 244, 1)",
+            },
+          ],
         };
         // this.pieData.datasets[0].data.push(this.userMetrics.native)
         // this.pieData.datasets[0].data.push(this.userMetrics.google)
