@@ -36,6 +36,9 @@
                     }}</nuxt-link>
                   </td>
                   <td>
+                    <stars-rating :stars="item.stars_rating"></stars-rating>
+                  </td>
+                  <td>
                     <nuxt-link
                       v-if="item.country"
                       :to="'/' + 'countries' + '/' + item.country.id"
@@ -126,11 +129,13 @@
 <script>
 import HotelForm from "~/components/forms/HotelForm";
 import TableCard from "~/components/ui/TableCard";
+import StarsRating from "~/components/ui/StarsRating";
 export default {
   middleware: "auth",
   components: {
     HotelForm,
     TableCard,
+    StarsRating,
   },
   data() {
     return {
@@ -143,7 +148,7 @@ export default {
       searchCardInfo: {
         searchTitle: "Search Hotels",
       },
-      headers: ["Hotel", "Country", "City"],
+      headers: ["Hotel", "Stars", "Country", "City"],
       items: null,
       show: true,
       currentPage: 1,
