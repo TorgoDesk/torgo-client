@@ -30,7 +30,7 @@
     <hr class="sidebar-divider" />
 
     <!-- Heading -->
-    <div class="sidebar-heading">Interface</div>
+    <div class="sidebar-heading">Operations</div>
 
     <!-- Nav Item - Dictionaries Collapse Menu -->
     <li class="nav-item">
@@ -52,45 +52,17 @@
         data-parent="#accordionSidebar"
       >
         <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Bookings:</h6>
-          <nuxt-link
-            v-for="(item, index) in bookingsMaster.subItems"
-            :key="index"
-            class="collapse-item"
-            :to="item.link"
-            >{{ item.name }}</nuxt-link
-          >
-        </div>
-      </div>
-    </li>
-
-    <!-- Nav Item - Utilities Collapse Menu -->
-    <li class="nav-item">
-      <a
-        class="nav-link collapsed"
-        href="#"
-        data-toggle="collapse"
-        data-target="#collapseUtilities"
-        aria-expanded="true"
-        aria-controls="collapseUtilities"
-      >
-        <i class="fas fa-fw fa-wrench"></i>
-        <span>Utilities</span>
-      </a>
-      <div
-        id="collapseUtilities"
-        class="collapse"
-        aria-labelledby="headingUtilities"
-        data-parent="#accordionSidebar"
-      >
-        <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Custom Utilities:</h6>
-          <a class="collapse-item" href="utilities-color.html">Colors</a>
-          <a class="collapse-item" href="utilities-border.html">Borders</a>
-          <a class="collapse-item" href="utilities-animation.html"
-            >Animations</a
-          >
-          <a class="collapse-item" href="utilities-other.html">Other</a>
+          <div v-for="(item, index) in bookingsMaster.subSections" :key="index">
+            <h6 class="collapse-header">{{ item.name }}:</h6>
+            <nuxt-link
+              v-for="(item, index) in item.modules"
+              :key="index"
+              class="collapse-item"
+              :to="item.link"
+              ><i :class="item.iconClass + ' text-primary'"></i>
+              {{ item.name }}</nuxt-link
+            >
+          </div>
         </div>
       </div>
     </li>
@@ -121,17 +93,17 @@
         data-parent="#accordionSidebar"
       >
         <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Globals:</h6>
-          <nuxt-link
-            v-for="(item, index) in dictionaries.subItems"
-            :key="index"
-            class="collapse-item"
-            :to="item.link"
-            ><span :class="item.colorClass"
-              ><i :class="item.iconClass"></i
-            ></span>
-            {{ item.name }}</nuxt-link
-          >
+          <div v-for="(item, index) in dictionaries.subSections" :key="index">
+            <h6 class="collapse-header">{{ item.name }}:</h6>
+            <nuxt-link
+              v-for="(item, index) in item.modules"
+              :key="index"
+              class="collapse-item"
+              :to="item.link"
+              ><i :class="item.iconClass + ' text-primary'"></i>
+              {{ item.name }}</nuxt-link
+            >
+          </div>
         </div>
       </div>
     </li>
@@ -156,17 +128,17 @@
         data-parent="#accordionSidebar"
       >
         <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Basic:</h6>
-          <nuxt-link
-            v-for="(item, index) in organization"
-            :key="index"
-            class="collapse-item"
-            :to="item.link"
-            ><span :class="item.colorClass"
-              ><i :class="item.iconClass"></i
-            ></span>
-            {{ item.name }}</nuxt-link
-          >
+          <div v-for="(item, index) in organization.subSections" :key="index">
+            <h6 class="collapse-header">{{ item.name }}:</h6>
+            <nuxt-link
+              v-for="(item, index) in item.modules"
+              :key="index"
+              class="collapse-item"
+              :to="item.link"
+              ><i :class="item.iconClass + ' text-primary'"></i>
+              {{ item.name }}</nuxt-link
+            >
+          </div>
         </div>
       </div>
     </li>
@@ -189,72 +161,140 @@ export default {
       dashboard: { name: "Dashboard", link: "/" },
       bookingsMaster: {
         name: "Bookings Master",
-        subItems: [
-          { name: "Custom Booking", link: "/error/wip" },
-          { name: "Package Booking", link: "/error/wip" },
+        subSections: [
+          {
+            name: "Bookings",
+            modules: [
+              {
+                name: "Custom Booking",
+                link: "/error/wip",
+                iconClass: "fas fa-fw fa-plane",
+              },
+              {
+                name: "Package Booking",
+                link: "/error/wip",
+                iconClass: "fas fa-fw fa-cubes",
+              },
+            ],
+          },
+          {
+            name: "Leads",
+            modules: [
+              {
+                name: "Leads",
+                link: "/leads",
+                iconClass: "fas fa-fw fa-users",
+                colorClass: "badge badge-primary",
+              },
+            ],
+          },
         ],
       },
       dictionaries: {
         name: "Dictionaries",
-        subItems: [
+        subSections: [
           {
-            name: "Cities",
-            link: "/cities",
-            iconClass: "fas fa-fw fa-city",
-            colorClass: "badge badge-primary",
+            name: "Locations",
+            modules: [
+              {
+                name: "Cities",
+                link: "/cities",
+                iconClass: "fas fa-fw fa-city",
+              },
+              {
+                name: "Countries",
+                link: "/countries",
+                iconClass: "fas fa-fw fa-globe-americas",
+              },
+            ],
           },
           {
-            name: "Countries",
-            link: "/countries",
-            iconClass: "fas fa-fw fa-globe-americas",
-            colorClass: "badge badge-primary",
+            name: "Hospitality",
+            modules: [
+              {
+                name: "Hotels",
+                link: "/hotels",
+                iconClass: "fas fa-fw fa-hotel",
+              },
+              {
+                name: "Room Types",
+                link: "/room-types",
+                iconClass: "fas fa-fw fa-bed",
+              },
+              {
+                name: "Restaurants",
+                link: "/error/wip",
+                iconClass: "fas fa-fw fa-utensils",
+              },
+            ],
           },
           {
-            name: "Hotels",
-            link: "/hotels",
-            iconClass: "fas fa-fw fa-hotel",
-            colorClass: "badge badge-primary",
-          },
-          {
-            name: "Leads",
-            link: "/leads",
-            iconClass: "fas fa-fw fa-users",
-            colorClass: "badge badge-primary",
-          },
-          {
-            name: "Room Types",
-            link: "/room-types",
-            iconClass: "fas fa-fw fa-person-booth",
-            colorClass: "badge badge-primary",
+            name: "Transports",
+            modules: [
+              {
+                name: "Suppliers",
+                link: "/error/wip",
+                iconClass: "fas fa-fw fa-users",
+              },
+              {
+                name: "Vehicles",
+                link: "/error/wip",
+                iconClass: "fas fa-fw fa-car",
+              },
+              {
+                name: "Drivers",
+                link: "/error/wip",
+                iconClass: "fas fa-fw fa-user-astronaut",
+              },
+              {
+                name: "Flights",
+                link: "/error/wip",
+                iconClass: "fas fa-fw fa-plane",
+              },
+            ],
           },
         ],
       },
-      organization: [
-        {
-          name: "Employees",
-          link: "/employees",
-          iconClass: "fas fa-fw fa-users",
-          colorClass: "badge badge-primary",
-        },
-        {
-          name: "Company Information",
-          link: "/error/wip",
-          iconClass: "fas fa-fw fa-building",
-          colorClass: "badge badge-primary",
-        },
-        {
-          name: "Roles & Rights",
-          link: "/error/wip",
-          iconClass: "fas fa-fw fa-user-tag",
-          colorClass: "badge badge-primary",
-        },
-        {
-          name: "Departments",
-          link: "/error/wip",
-          iconClass: "fas fa-fw fa-mail-bulk",
-          colorClass: "badge badge-primary",
-        },
-      ],
+      organization: {
+        name: "Organization",
+        subSections: [
+          {
+            name: "Basic",
+            modules: [
+              {
+                name: "Employees",
+                link: "/employees",
+                iconClass: "fas fa-fw fa-users",
+              },
+              {
+                name: "Company Information",
+                link: "/error/wip",
+                iconClass: "fas fa-fw fa-building",
+              },
+              {
+                name: "Roles & Rights",
+                link: "/error/wip",
+                iconClass: "fas fa-fw fa-user-tag",
+              },
+              {
+                name: "Departments",
+                link: "/error/wip",
+                iconClass: "fas fa-fw fa-mail-bulk",
+              },
+            ],
+          },
+          {
+            name: "Access Controls",
+            modules: [
+              {
+                name: "Roles & Rights",
+                link: "/error/wip",
+                iconClass: "fas fa-fw fa-user-tag",
+              },
+            ],
+          },
+        ],
+      },
     };
   },
   methods: {
