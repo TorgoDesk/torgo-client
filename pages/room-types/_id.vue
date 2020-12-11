@@ -24,30 +24,26 @@
                 </h6>
               </div>
               <div>
-                <b-button variant="success" size="sm" v-b-modal.country-form
+                <b-button variant="success" size="sm" v-b-modal.room-type-form
                   ><i class="fas fa-sm fa-fw fa-edit"></i> Edit</b-button
                 >
-                <country-form
+                <room-type-form
                   :isEdit="true"
                   :item="item"
                   @submited="fetchItem"
-                ></country-form>
+                ></room-type-form>
               </div>
             </div>
             <div class="card-body" v-if="!detailsCardLoading">
               <b-alert v-if="error" show variant="danger">{{ error }}</b-alert>
               <div class="row">
                 <div class="col-xl-2">
-                  <label>Country Name</label>
+                  <label>Room Type</label>
                   <h5>{{ this.item.name }}</h5>
                 </div>
-                <div class="col-xl-2">
-                  <label>Country Code</label>
-                  <h5>{{ this.item.code }}</h5>
-                </div>
-                <div class="col-xl-2">
-                  <label>Phone Prefix</label>
-                  <h5>{{ this.item.phone_prefix }}</h5>
+                <div class="col-xl-4">
+                  <label>Description</label>
+                  <h5>{{ this.item.description }}</h5>
                 </div>
               </div>
             </div>
@@ -59,23 +55,23 @@
 </template>
 
 <script>
-import CountryForm from "~/components/forms/CountryForm";
+import RoomTypeForm from "~/components/forms/RoomTypeForm";
 
 export default {
   components: {
-    CountryForm,
+    RoomTypeForm,
   },
   data() {
     return {
       id: parseInt(this.$route.params.id),
       detailsCardInfo: {
-        tableTitle: "Country Details",
+        tableTitle: "Room Type Details",
       },
       pageInfo: {
-        title: "Country",
-        slug: "countries",
+        title: "Room Type",
+        slug: "room-types",
       },
-      itemTitles: ["Country Name", "Country Code", "Phone Prefix Code"],
+      itemTitles: ["Room Type", "Description"],
       item: null,
       error: null,
       detailsCardLoading: true,

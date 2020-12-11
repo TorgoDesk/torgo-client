@@ -2,7 +2,7 @@
   <!-- Form Modal -->
   <b-modal
     v-model="show"
-    id="hotel-form"
+    id="lead-form"
     centered
     no-fade
     size="lg"
@@ -16,31 +16,31 @@
           <div class="col-xl-6">
             <b-form-group
               id="input-group-1"
-              label="Hotel Name:"
+              label="Lead First Name:"
               label-for="input-1"
             >
               <b-form-input
                 id="input-1"
-                v-model="editItem.name"
+                v-model="editItem.first_name"
                 type="text"
                 size="sm"
                 required
-                placeholder="Enter hotel name"
+                placeholder="Enter first name"
               ></b-form-input>
             </b-form-group>
           </div>
           <div class="col-xl-6">
             <b-form-group
               id="input-group-2"
-              label="Telephone Number:"
+              label="Lead Last Name:"
               label-for="input-2"
             >
               <b-form-input
                 id="input-2"
-                v-model="editItem.telephone"
+                v-model="editItem.last_name"
                 required
                 size="sm"
-                placeholder="Enter telephone number"
+                placeholder="Enter last name"
               ></b-form-input>
             </b-form-group>
           </div>
@@ -58,39 +58,31 @@
             </b-form-group>
           </div>
           <div class="col-xl-6">
-            <b-form-group
-              id="input-group-2"
-              label="Website:"
-              label-for="input-2"
-            >
+            <b-form-group id="input-group-2" label="Age:" label-for="input-2">
               <b-form-input
                 id="input-2"
-                v-model="editItem.website"
+                v-model="editItem.age"
                 required
                 size="sm"
-                placeholder="Enter website"
+                placeholder="Enter age"
               ></b-form-input>
             </b-form-group>
           </div>
         </div>
         <div class="row">
           <div class="col-xl-6">
-            <b-form-group id="input-group-2" label="City:" label-for="input-2">
-              <b-form-select
+            <b-form-group
+              id="input-group-2"
+              label="Telephone:"
+              label-for="input-2"
+            >
+              <b-form-input
                 id="input-2"
-                v-model="editItem.city_id"
+                v-model="editItem.telephone"
                 required
                 size="sm"
-                placeholder="Enter code"
-              >
-                <b-form-select-option
-                  v-for="city in filteredCities"
-                  :value="city.id"
-                  :key="city.id"
-                >
-                  {{ city.name }}
-                </b-form-select-option>
-              </b-form-select>
+                placeholder="Enter telephone number"
+              ></b-form-input>
             </b-form-group>
           </div>
           <div class="col-xl-6">
@@ -122,32 +114,17 @@
           <div class="col-xl-6">
             <b-form-group
               id="input-group-2"
-              label="Address:"
+              label="Description:"
               label-for="input-2"
             >
               <b-form-textarea
                 id="textarea"
-                v-model="editItem.address"
+                v-model="editItem.description"
                 placeholder="Enter something..."
                 rows="3"
                 size="sm"
                 max-rows="6"
               ></b-form-textarea>
-            </b-form-group>
-          </div>
-          <div class="col-xl-6">
-            <b-form-group id="input-group-2" label="Rating" label-for="input-2"
-              ><b-form-select
-                id="input-2"
-                v-model="editItem.stars_rating"
-                required
-                size="sm"
-                placeholder="Enter code"
-              >
-                <b-form-select-option v-for="n in 5" :value="n" :key="n">
-                  {{ n }}
-                </b-form-select-option>
-              </b-form-select>
             </b-form-group>
           </div>
         </div>
@@ -178,14 +155,12 @@ export default {
       default: function () {
         return {
           id: "",
-          name: "",
-          telephone: "",
+          first_name: "",
+          last_name: "",
           email: "",
           country_id: "",
-          city_id: "",
-          website: "",
-          address: "",
-          stars_rating: "",
+          description: "",
+          age: "",
           created_at: "",
           updated_at: "",
         };
@@ -201,40 +176,35 @@ export default {
       show: false,
       editItem: {
         id: "",
-        name: "",
-        telephone: "",
+        first_name: "",
+        last_name: "",
         email: "",
         country_id: "",
-        city_id: "",
-        website: "",
-        address: "",
-        stars_rating: "",
+        description: "",
+        age: "",
         created_at: "",
         updated_at: "",
       },
       defaultItem: {
         id: "",
-        name: "",
-        telephone: "",
+        first_name: "",
+        last_name: "",
         email: "",
         country_id: "",
-        city_id: "",
-        website: "",
-        address: "",
-        stars_rating: "",
+        description: "",
+        age: "",
         created_at: "",
         updated_at: "",
       },
       countries: null,
-      cities: null,
     };
   },
   computed: {
     modalTitle() {
       if (this.isEdit) {
-        return "Edit Hotel";
+        return "Edit Lead";
       } else {
-        return "Create Hotel";
+        return "Create Lead";
       }
     },
     submitButton() {
@@ -242,19 +212,6 @@ export default {
         return "Update";
       } else {
         return "Save";
-      }
-    },
-    filteredCities() {
-      var vm = this;
-      try {
-        return this.cities.filter(function (el) {
-          if (el.country_id === vm.editItem.country_id) {
-            return el;
-          }
-        });
-      } catch (error) {
-        console.log(error);
-        return null;
       }
     },
   },
@@ -272,11 +229,11 @@ export default {
     },
     async submit() {
       if (this.isEdit) {
-        const response = await this.$axios.$put("/hotels/" + this.item.id, {
+        const response = await this.$axios.$put("/leads/" + this.item.id, {
           ...this.editItem,
         });
       } else {
-        const response = await this.$axios.$post("/hotels", {
+        const response = await this.$axios.$post("/leads", {
           ...this.editItem,
         });
       }
@@ -293,18 +250,8 @@ export default {
         this.error = error;
       }
     },
-    async fetchCities() {
-      try {
-        const response = await this.$axios.$get("/" + "cities/list");
-        this.cities = response;
-      } catch (error) {
-        console.log(error);
-        this.error = error;
-      }
-    },
   },
   mounted() {
-    this.fetchCities();
     this.fetchCountries();
   },
 };

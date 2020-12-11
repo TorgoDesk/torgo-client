@@ -14,7 +14,7 @@
       <div class="col-xl-12">
         <table-card
           :card-title="tableCardInfo.tableTitle"
-          :form-name="'hotel-form'"
+          :form-name="'lead-form'"
         >
           <template v-slot:card-body>
             <b-alert v-if="error" show variant="danger">{{ error }}</b-alert>
@@ -31,25 +31,21 @@
               <tbody>
                 <tr v-for="item in items" :key="item.id">
                   <td>
-                    <nuxt-link :to="'/' + pageInfo.slug + '/' + item.id">{{
-                      item.name
-                    }}</nuxt-link>
+                    <nuxt-link :to="'/' + pageInfo.slug + '/' + item.id"
+                      >{{ item.first_name }} {{ item.last_name }}</nuxt-link
+                    >
                   </td>
                   <td>
-                    <stars-rating :stars="item.stars_rating"></stars-rating>
+                    {{ item.email }}
+                  </td>
+                  <td>
+                    {{ item.age }}
                   </td>
                   <td>
                     <nuxt-link
                       v-if="item.country"
                       :to="'/' + 'countries' + '/' + item.country.id"
                       >{{ item.country.name }}</nuxt-link
-                    >
-                  </td>
-                  <td>
-                    <nuxt-link
-                      v-if="item.city"
-                      :to="'/' + 'cities' + '/' + item.city.id"
-                      >{{ item.city.name }}</nuxt-link
                     >
                   </td>
                   <td>
@@ -117,7 +113,7 @@
               ></b-pagination>
             </div>
             <!-- Pagination End -->
-            <hotel-form @submited="fetchItems"></hotel-form>
+            <lead-form @submited="fetchItems"></lead-form>
           </template>
         </table-card>
       </div>
@@ -127,28 +123,26 @@
 </template>
 
 <script>
-import HotelForm from "~/components/forms/HotelForm";
+import LeadForm from "~/components/forms/LeadForm";
 import TableCard from "~/components/ui/TableCard";
-import StarsRating from "~/components/ui/StarsRating";
 export default {
   middleware: "auth",
   components: {
-    HotelForm,
+    LeadForm,
     TableCard,
-    StarsRating,
   },
   data() {
     return {
       pageInfo: {
-        slug: "hotels",
+        slug: "leads",
       },
       tableCardInfo: {
-        tableTitle: "Hotels List",
+        tableTitle: "Leads List",
       },
       searchCardInfo: {
         searchTitle: "Search Hotels",
       },
-      headers: ["Hotel", "Stars", "Country", "City"],
+      headers: ["Full Name", "Email", "Age", "Country"],
       items: null,
       show: true,
       currentPage: 1,

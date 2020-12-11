@@ -24,30 +24,50 @@
                 </h6>
               </div>
               <div>
-                <b-button variant="success" size="sm" v-b-modal.country-form
+                <b-button variant="success" size="sm" v-b-modal.lead-form
                   ><i class="fas fa-sm fa-fw fa-edit"></i> Edit</b-button
                 >
-                <country-form
+                <lead-form
                   :isEdit="true"
                   :item="item"
                   @submited="fetchItem"
-                ></country-form>
+                ></lead-form>
               </div>
             </div>
             <div class="card-body" v-if="!detailsCardLoading">
               <b-alert v-if="error" show variant="danger">{{ error }}</b-alert>
               <div class="row">
                 <div class="col-xl-2">
-                  <label>Country Name</label>
-                  <h5>{{ this.item.name }}</h5>
+                  <label>First Name</label>
+                  <h5>{{ this.item.first_name }}</h5>
                 </div>
                 <div class="col-xl-2">
-                  <label>Country Code</label>
-                  <h5>{{ this.item.code }}</h5>
+                  <label>Last Name</label>
+                  <h5>{{ this.item.last_name }}</h5>
                 </div>
                 <div class="col-xl-2">
-                  <label>Phone Prefix</label>
-                  <h5>{{ this.item.phone_prefix }}</h5>
+                  <label>Last Age</label>
+                  <h5>{{ this.item.age }}</h5>
+                </div>
+                <div class="col-xl-2">
+                  <label>Telephone</label>
+                  <h5>{{ this.item.telephone }}</h5>
+                </div>
+                <div class="col-xl-2">
+                  <label>Email</label>
+                  <h5>{{ this.item.email }}</h5>
+                </div>
+                <div class="col-xl-2">
+                  <label>Address</label>
+                  <h5>{{ this.item.address }}</h5>
+                </div>
+                <div class="col-xl-2">
+                  <label>Country</label>
+                  <h5 v-if="item.country">{{ this.item.country.name }}</h5>
+                </div>
+                <div class="col-xl-4">
+                  <label>Description</label>
+                  <h5>{{ this.item.description }}</h5>
                 </div>
               </div>
             </div>
@@ -59,23 +79,31 @@
 </template>
 
 <script>
-import CountryForm from "~/components/forms/CountryForm";
+import LeadForm from "~/components/forms/LeadForm";
 
 export default {
   components: {
-    CountryForm,
+    LeadForm,
   },
   data() {
     return {
       id: parseInt(this.$route.params.id),
       detailsCardInfo: {
-        tableTitle: "Country Details",
+        tableTitle: "Lead Details",
       },
       pageInfo: {
-        title: "Country",
-        slug: "countries",
+        title: "Lead",
+        slug: "leads",
       },
-      itemTitles: ["Country Name", "Country Code", "Phone Prefix Code"],
+      itemTitles: [
+        "First Name",
+        "Last Name",
+        "Email",
+        "Age",
+        "Telephone",
+        "Country",
+        "Description",
+      ],
       item: null,
       error: null,
       detailsCardLoading: true,

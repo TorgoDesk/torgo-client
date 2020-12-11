@@ -25,7 +25,7 @@
               </div>
               <div>
                 <b-button variant="success" size="sm" v-b-modal.hotel-form
-                  ><i class="fas fa-sm fa-fw fa-plus"></i>Edit</b-button
+                  ><i class="fas fa-sm fa-fw fa-edit"></i> Edit</b-button
                 >
                 <hotel-form
                   :isEdit="true"
@@ -65,6 +65,14 @@
                   <label>Website</label>
                   <h5>{{ this.item.website }}</h5>
                 </div>
+                <div class="col-xl-2">
+                  <label>Rating</label>
+                  <p>
+                    <stars-rating
+                      :stars="this.item.stars_rating"
+                    ></stars-rating>
+                  </p>
+                </div>
               </div>
             </div>
           </b-overlay>
@@ -76,10 +84,12 @@
 
 <script>
 import HotelForm from "~/components/forms/HotelForm";
+import StarsRating from "~/components/ui/StarsRating";
 
 export default {
   components: {
     HotelForm,
+    StarsRating,
   },
   data() {
     return {

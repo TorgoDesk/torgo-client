@@ -14,7 +14,7 @@
       <div class="col-xl-12">
         <table-card
           :card-title="tableCardInfo.tableTitle"
-          :form-name="'hotel-form'"
+          :form-name="'room-type-form'"
         >
           <template v-slot:card-body>
             <b-alert v-if="error" show variant="danger">{{ error }}</b-alert>
@@ -34,23 +34,6 @@
                     <nuxt-link :to="'/' + pageInfo.slug + '/' + item.id">{{
                       item.name
                     }}</nuxt-link>
-                  </td>
-                  <td>
-                    <stars-rating :stars="item.stars_rating"></stars-rating>
-                  </td>
-                  <td>
-                    <nuxt-link
-                      v-if="item.country"
-                      :to="'/' + 'countries' + '/' + item.country.id"
-                      >{{ item.country.name }}</nuxt-link
-                    >
-                  </td>
-                  <td>
-                    <nuxt-link
-                      v-if="item.city"
-                      :to="'/' + 'cities' + '/' + item.city.id"
-                      >{{ item.city.name }}</nuxt-link
-                    >
                   </td>
                   <td>
                     <div class="dropdown no-arrow">
@@ -117,7 +100,7 @@
               ></b-pagination>
             </div>
             <!-- Pagination End -->
-            <hotel-form @submited="fetchItems"></hotel-form>
+            <room-type-form @submited="fetchItems"></room-type-form>
           </template>
         </table-card>
       </div>
@@ -127,28 +110,26 @@
 </template>
 
 <script>
-import HotelForm from "~/components/forms/HotelForm";
+import RoomTypeForm from "~/components/forms/RoomTypeForm";
 import TableCard from "~/components/ui/TableCard";
-import StarsRating from "~/components/ui/StarsRating";
 export default {
   middleware: "auth",
   components: {
-    HotelForm,
+    RoomTypeForm,
     TableCard,
-    StarsRating,
   },
   data() {
     return {
       pageInfo: {
-        slug: "hotels",
+        slug: "room-types",
       },
       tableCardInfo: {
-        tableTitle: "Hotels List",
+        tableTitle: "Room Types List",
       },
       searchCardInfo: {
-        searchTitle: "Search Hotels",
+        searchTitle: "Search Room Types",
       },
-      headers: ["Hotel", "Stars", "Country", "City"],
+      headers: ["Room Type"],
       items: null,
       show: true,
       currentPage: 1,
