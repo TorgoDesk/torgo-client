@@ -246,6 +246,11 @@ export default {
                 link: "/error/wip",
                 iconClass: "fas fa-fw fa-user-astronaut",
               },
+              {
+                name: "Flights",
+                link: "/error/wip",
+                iconClass: "fas fa-fw fa-plane",
+              },
             ],
           },
         ],
