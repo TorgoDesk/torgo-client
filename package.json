@@ -7,7 +7,8 @@
     "build": "nuxt build",
     "start": "nuxt start",
     "export": "nuxt export",
-    "serve": "nuxt serve"
+    "serve": "nuxt serve",
+    "test": "jest"
   },
   "dependencies": {
     "@nuxtjs/auth": "^4.9.1",
@@ -20,7 +21,15 @@
     "vue-chartjs": "^3.5.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.12.9",
+    "@babel/preset-env": "^7.12.7",
+    "@vue/test-utils": "^1.1.1",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^26.6.3",
+    "jest": "^26.6.3",
+    "jest-serializer-vue": "^2.0.2",
     "node-sass": "^4.14.1",
-    "sass-loader": "^9.0.1"
+    "sass-loader": "^9.0.1",
+    "vue-jest": "^3.0.7"
   }
 }
