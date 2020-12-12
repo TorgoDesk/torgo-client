@@ -90,9 +90,7 @@
           class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
           aria-labelledby="alertsDropdown"
         >
-          <h6 class="dropdown-header">
-            Alerts Center
-          </h6>
+          <h6 class="dropdown-header">Alerts Center</h6>
           <a class="dropdown-item d-flex align-items-center" href="#">
             <div class="mr-3">
               <div class="icon-circle bg-primary">
@@ -155,9 +153,7 @@
           class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
           aria-labelledby="messagesDropdown"
         >
-          <h6 class="dropdown-header">
-            Message Center
-          </h6>
+          <h6 class="dropdown-header">Message Center</h6>
           <a class="dropdown-item d-flex align-items-center" href="#">
             <div class="dropdown-list-image mr-3">
               <img
@@ -284,21 +280,35 @@
         </div>
       </li>
     </ul>
+    <welcoming-modal :user="loggedInUser"></welcoming-modal>
   </nav>
   <!-- End of Topbar -->
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import WelcomingModal from "~/components/onboarding-modals/WelcomingModal";
+
 export default {
   computed: {
-    ...mapGetters(["isAuthenticated", "loggedInUser"])
+    ...mapGetters(["isAuthenticated", "loggedInUser"]),
   },
   methods: {
     async logout() {
       await this.$auth.logout();
-    }
-  }
+    },
+    showModal() {
+      if (localStorage.onboarding_welcome) {
+        this.$bvModal.hide("welcoming-modal");
+      } else {
+        this.$bvModal.show("welcoming-modal");
+        localStorage.onboarding_welcome = true;
+      }
+    },
+  },
+  mounted() {
+    this.showModal();
+  },
 };
 </script>
 
