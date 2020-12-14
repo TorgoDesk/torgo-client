@@ -16,7 +16,7 @@
         display: block;
       }
     }
-    &.active {
+    &.nuxt-link-active {
       .nav-link {
         font-weight: 700;
       }
@@ -68,7 +68,8 @@
           &:active {
             background-color: $gray-300;
           }
-          &.active {
+          &.nuxt-link-active {
+            background-color: $gray-100;
             color: $primary;
             font-weight: 700;
           }
