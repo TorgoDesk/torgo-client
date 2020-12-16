@@ -75,21 +75,60 @@
         </div>
       </div>
     </div>
+    <!-- Content Row -->
+    <div class="row">
+      <div class="col-xl-4">
+        <div class="card shadow mb-4">
+          <b-overlay :show="detailsCardLoading" rounded="sm">
+            <div
+              class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
+            >
+              <div>
+                <h6 class="m-0 font-weight-bold text-primary">
+                  {{ notesCardInfo.title }}
+                </h6>
+              </div>
+              <div>
+                <b-button variant="success" size="sm" v-b-modal.note-form
+                  ><i class="fas fa-sm fa-fw fa-plus"></i> Add</b-button
+                >
+              </div>
+            </div>
+            <div class="card-body scroll" v-if="!detailsCardLoading">
+              <b-alert v-if="error" show variant="danger">{{ error }}</b-alert>
+              <note
+                v-for="note in item.notes"
+                :key="note.id"
+                :note="note"
+              ></note>
+            </div>
+          </b-overlay>
+        </div>
+      </div>
+    </div>
+    <note-form @submited="fetchItem" :lead="item"></note-form>
   </div>
 </template>
 
 <script>
 import LeadForm from "~/components/forms/LeadForm";
+import NoteForm from "~/components/forms/NoteForm";
+import Note from "~/components/ui/Note";
 
 export default {
   components: {
     LeadForm,
+    Note,
+    NoteForm,
   },
   data() {
     return {
       id: parseInt(this.$route.params.id),
       detailsCardInfo: {
         tableTitle: "Lead Details",
+      },
+      notesCardInfo: {
+        title: "Notes",
       },
       pageInfo: {
         title: "Lead",
@@ -132,4 +171,8 @@ export default {
 </script>
 
 <style>
+.scroll {
+  max-height: 500px;
+  overflow-y: auto;
+}
 </style>

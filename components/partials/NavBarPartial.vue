@@ -246,7 +246,7 @@
           }}</span>
           <img
             class="img-profile rounded-circle"
-            src="https://source.unsplash.com/QAB-WJcbgJk/60x60"
+            :src="userProfile.profile_pic_url"
           />
         </a>
         <!-- Dropdown - User Information -->
@@ -291,7 +291,7 @@ import WelcomingModal from "~/components/onboarding-modals/WelcomingModal";
 
 export default {
   computed: {
-    ...mapGetters(["isAuthenticated", "loggedInUser"]),
+    ...mapGetters(["isAuthenticated", "loggedInUser", "userProfile"]),
   },
   methods: {
     async logout() {
@@ -305,9 +305,22 @@ export default {
         localStorage.onboarding_welcome = true;
       }
     },
+    async fetchUserProfile() {
+      var vm = this;
+      try {
+        const response = await this.$axios.$get(
+          "/profiles/" + this.loggedInUser.id
+        );
+        vm.$store.dispatch("setUserProfile", response);
+        console.log(response);
+      } catch (error) {
+        console.error(error);
+      }
+    },
   },
   mounted() {
     this.showModal();
+    this.fetchUserProfile();
   },
 };
 </script>
