@@ -1,5 +1,21 @@
 export const state = {
-  connected: navigator.onLine
+  connected: navigator.onLine,
+  userProfile: {
+    address: '',
+    alias: '',
+    company_name: '',
+    department: '',
+    first_name: '',
+    id: '',
+    last_name: '',
+    middle_name: '',
+    phone: '',
+    profile_pic_url: '',
+    suffix: '',
+    title: '',
+    updated_at: '',
+    user_id: '',
+  }
 }
 
 export const getters = {
@@ -11,6 +27,10 @@ export const getters = {
     return state.auth.user
   },
 
+  userProfile(state) {
+    return state.userProfile
+  },
+
   connected(state) {
     return state.connected
   }
@@ -19,11 +39,17 @@ export const getters = {
 export const mutations = {
   'SET_CONNECTED' (state, payload) {
     state.connected = payload
+  },
+  'SET_USER_PROFILE' (state, payload) {
+    state.userProfile = payload
   }
 }
 
 export const actions = {
   setConnected ({commit}, payload) {
     commit('SET_CONNECTED', payload)
+  },
+  setUserProfile ({commit}, payload) {
+    commit('SET_USER_PROFILE', payload)
   }
 }
