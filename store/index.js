@@ -51,5 +51,16 @@ export const actions = {
   },
   setUserProfile ({commit}, payload) {
     commit('SET_USER_PROFILE', payload)
+  },
+  async fetchUserProfile({commit}, id) {
+    try {
+      const response = await this.$axios.$get(
+        "/profiles/" + id
+      );
+      commit('SET_USER_PROFILE', response)
+      console.log('axios inside vuex');
+    } catch (error) {
+      console.error(error);
+    } 
   }
 }

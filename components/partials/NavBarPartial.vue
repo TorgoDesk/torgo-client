@@ -308,11 +308,7 @@ export default {
     async fetchUserProfile() {
       var vm = this;
       try {
-        const response = await this.$axios.$get(
-          "/profiles/" + this.loggedInUser.id
-        );
-        vm.$store.dispatch("setUserProfile", response);
-        console.log(response);
+        vm.$store.dispatch("fetchUserProfile", this.loggedInUser.id);
       } catch (error) {
         console.error(error);
       }
