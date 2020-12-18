@@ -9,10 +9,16 @@
       class="sidebar-brand d-flex align-items-center justify-content-center"
       href="index.html"
     >
-      <div class="sidebar-brand-icon rotate-n-15">
+      <!-- <div class="sidebar-brand-icon rotate-n-15">
         <i class="fas fa-laugh-wink"></i>
-      </div>
-      <div class="sidebar-brand-text mx-3">Torgo Desk</div>
+      </div> -->
+      <!-- <div class="sidebar-brand-text mx-3">Torgo Desk</div> -->
+      <img
+        class="img-fluid px-3 px-sm-4"
+        style="width: 25rem"
+        src="~/assets/img/torgo.png"
+        alt=""
+      />
     </a>
 
     <!-- Divider -->
