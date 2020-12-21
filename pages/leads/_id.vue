@@ -65,6 +65,12 @@
                   <label>Country</label>
                   <h5 v-if="item.country">{{ this.item.country.name }}</h5>
                 </div>
+                <div class="col-xl-2">
+                  <label>Rating</label>
+                  <h5>
+                    <stars-rating :stars="item.stars_rating"></stars-rating>
+                  </h5>
+                </div>
                 <div class="col-xl-4">
                   <label>Description</label>
                   <h5>{{ this.item.description }}</h5>
