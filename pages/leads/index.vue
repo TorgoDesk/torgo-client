@@ -32,7 +32,16 @@
                 <tr v-for="item in items" :key="item.id">
                   <td>
                     <nuxt-link :to="'/' + pageInfo.slug + '/' + item.id"
-                      >{{ item.first_name }} {{ item.last_name }}</nuxt-link
+                      >{{ item.first_name }} {{ item.last_name }} </nuxt-link
+                    ><span
+                      v-if="item.status == 4"
+                      class="badge bg-success text-white"
+                      >Converted</span
+                    >
+                    <span
+                      v-if="item.status == 5"
+                      class="badge bg-danger text-white"
+                      >Lost</span
                     >
                   </td>
                   <td>
@@ -162,6 +171,7 @@ export default {
       },
     };
   },
+
   methods: {
     async deleteItem(deleteId) {
       try {
