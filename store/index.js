@@ -58,7 +58,6 @@ export const actions = {
         "/profiles/" + id
       );
       commit('SET_USER_PROFILE', response)
-      console.log('axios inside vuex');
     } catch (error) {
       console.error(error);
     } 

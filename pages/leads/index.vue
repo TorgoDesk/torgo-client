@@ -36,6 +36,9 @@
                     >
                   </td>
                   <td>
+                    <stars-rating :stars="item.stars_rating"></stars-rating>
+                  </td>
+                  <td>
                     {{ item.email }}
                   </td>
                   <td>
@@ -125,6 +128,7 @@
 <script>
 import LeadForm from "~/components/forms/LeadForm";
 import TableCard from "~/components/ui/TableCard";
+import StarsRating from "~/components/ui/StarsRating";
 export default {
   middleware: "auth",
   components: {
@@ -142,7 +146,7 @@ export default {
       searchCardInfo: {
         searchTitle: "Search Hotels",
       },
-      headers: ["Full Name", "Email", "Age", "Country"],
+      headers: ["Full Name", "Rating", "Email", "Age", "Country"],
       items: null,
       show: true,
       currentPage: 1,

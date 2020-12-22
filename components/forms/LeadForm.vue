@@ -127,6 +127,21 @@
               ></b-form-textarea>
             </b-form-group>
           </div>
+          <div class="col-xl-6">
+            <b-form-group id="input-group-2" label="Rating" label-for="input-2"
+              ><b-form-select
+                id="input-2"
+                v-model="editItem.stars_rating"
+                required
+                size="sm"
+                placeholder="Enter code"
+              >
+                <b-form-select-option v-for="n in 5" :value="n" :key="n">
+                  {{ n }}
+                </b-form-select-option>
+              </b-form-select>
+            </b-form-group>
+          </div>
         </div>
       </b-form>
     </template>
@@ -161,6 +176,7 @@ export default {
           country_id: "",
           description: "",
           age: "",
+          stars_rating: "",
           created_at: "",
           updated_at: "",
         };
@@ -182,6 +198,7 @@ export default {
         country_id: "",
         description: "",
         age: "",
+        stars_rating: "",
         created_at: "",
         updated_at: "",
       },
@@ -193,6 +210,7 @@ export default {
         country_id: "",
         description: "",
         age: "",
+        stars_rating: "",
         created_at: "",
         updated_at: "",
       },
