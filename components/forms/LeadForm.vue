@@ -143,6 +143,23 @@
             </b-form-group>
           </div>
         </div>
+        <div class="row">
+          <div class="col-xl-6">
+            <b-form-group id="input-group-2" label="Status" label-for="input-2"
+              ><b-form-select
+                id="input-2"
+                v-model="editItem.status"
+                required
+                size="sm"
+                :options="statuses"
+                value-field="id"
+                text-field="name"
+                placeholder="Select Status"
+              >
+              </b-form-select>
+            </b-form-group>
+          </div>
+        </div>
       </b-form>
     </template>
     <template v-slot:modal-footer>
@@ -176,12 +193,14 @@ export default {
           country_id: "",
           description: "",
           age: "",
+          status: "",
           stars_rating: "",
           created_at: "",
           updated_at: "",
         };
       },
     },
+
     isEdit: {
       type: Boolean,
       default: false,
@@ -198,6 +217,7 @@ export default {
         country_id: "",
         description: "",
         age: "",
+        status: "",
         stars_rating: "",
         created_at: "",
         updated_at: "",
@@ -210,10 +230,33 @@ export default {
         country_id: "",
         description: "",
         age: "",
+        status: "",
         stars_rating: "",
         created_at: "",
         updated_at: "",
       },
+      statuses: [
+        {
+          name: "Initiation",
+          id: 1,
+        },
+        {
+          name: "Negotiation",
+          id: 2,
+        },
+        {
+          name: "Conversion",
+          id: 3,
+        },
+        {
+          name: "Converted",
+          id: 4,
+        },
+        {
+          name: "Lost",
+          id: 5,
+        },
+      ],
       countries: null,
     };
   },

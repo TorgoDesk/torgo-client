@@ -83,7 +83,7 @@
     </div>
     <!-- Content Row -->
     <div class="row">
-      <div class="col-xl-4">
+      <div class="col-xl-6">
         <div class="card shadow mb-4">
           <b-overlay :show="detailsCardLoading" rounded="sm">
             <div
@@ -102,11 +102,36 @@
             </div>
             <div class="card-body scroll" v-if="!detailsCardLoading">
               <b-alert v-if="error" show variant="danger">{{ error }}</b-alert>
+              <!-- todo: stylized small scrollbar -->
               <note
                 v-for="note in item.notes"
                 :key="note.id"
                 :note="note"
               ></note>
+            </div>
+          </b-overlay>
+        </div>
+      </div>
+      <div class="col-xl-6">
+        <div class="card shadow mb-4">
+          <b-overlay :show="detailsCardLoading" rounded="sm">
+            <div
+              class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
+            >
+              <div>
+                <h6 class="m-0 font-weight-bold text-primary">
+                  {{ statusCardInfo.title }}
+                </h6>
+              </div>
+              <div>
+                <b-button hidden size="sm"
+                  ><i class="fas fa-sm fa-fw fa-plus"></i> Add</b-button
+                >
+              </div>
+            </div>
+            <div class="card-body" v-if="!detailsCardLoading">
+              <!-- todo: status widget -->
+              <status-widget :status="this.item.status"></status-widget>
             </div>
           </b-overlay>
         </div>
@@ -120,12 +145,14 @@
 import LeadForm from "~/components/forms/LeadForm";
 import NoteForm from "~/components/forms/NoteForm";
 import Note from "~/components/ui/Note";
+import StatusWidget from "~/components/ui/StatusWidget/StatusWidget";
 
 export default {
   components: {
     LeadForm,
     Note,
     NoteForm,
+    StatusWidget,
   },
   data() {
     return {
@@ -135,6 +162,9 @@ export default {
       },
       notesCardInfo: {
         title: "Notes",
+      },
+      statusCardInfo: {
+        title: "Status",
       },
       pageInfo: {
         title: "Lead",
@@ -178,6 +208,7 @@ export default {
 
 <style>
 .scroll {
+  height: 500px;
   max-height: 500px;
   overflow-y: auto;
 }
