@@ -68,7 +68,7 @@
                 <div
                   class="text-xs font-weight-bold text-info text-uppercase mb-1"
                 >
-                  Tasks
+                  Weekly Goal
                 </div>
                 <div class="row no-gutters align-items-center">
                   <div class="col-auto">
@@ -123,43 +123,6 @@
     <!-- Content Row -->
 
     <div class="row">
-      <!-- Area Chart -->
-      <div class="col-xl-8 col-lg-7">
-        <div class="card shadow mb-4">
-          <!-- Card Header - Dropdown -->
-          <div
-            class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
-          >
-            <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
-            <div class="dropdown no-arrow">
-              <a
-                class="dropdown-toggle"
-                href="#"
-                role="button"
-                id="dropdownMenuLink"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-              </a>
-              <div
-                class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                aria-labelledby="dropdownMenuLink"
-              >
-                <div class="dropdown-header">Dropdown Header:</div>
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </div>
-            </div>
-          </div>
-          <!-- Card Body -->
-          <div class="card-body"></div>
-        </div>
-      </div>
-
       <!-- Pie Chart -->
       <div class="col-xl-4 col-lg-5">
         <div class="card shadow mb-4">
@@ -167,7 +130,9 @@
           <div
             class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
           >
-            <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
+            <h6 class="m-0 font-weight-bold text-primary">
+              Your Leads Breakdown
+            </h6>
             <div class="dropdown no-arrow">
               <a
                 class="dropdown-toggle"
@@ -201,13 +166,65 @@
             ></pie-chart>
             <div class="mt-4 text-center small">
               <span class="mr-2">
-                <i class="fas fa-circle text-primary"></i> Direct
+                <i class="fas fa-circle text-primary"></i> Initiated
               </span>
               <span class="mr-2">
-                <i class="fas fa-circle text-success"></i> Social
+                <i class="fas fa-circle text-success"></i> Converted
               </span>
               <span class="mr-2">
-                <i class="fas fa-circle text-info"></i> Referral
+                <i class="fas fa-circle text-warning"></i> In Negotiation
+              </span>
+              <span class="mr-2">
+                <i class="fas fa-circle text-danger"></i> Lost
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Line Chart -->
+      <div class="col-xl-8 col-lg-5">
+        <div class="card shadow mb-4">
+          <!-- Card Header - Dropdown -->
+          <div
+            class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
+          >
+            <h6 class="m-0 font-weight-bold text-primary">
+              Your New Leads (Last 7 Days)
+            </h6>
+            <div class="dropdown no-arrow">
+              <a
+                class="dropdown-toggle"
+                href="#"
+                role="button"
+                id="dropdownMenuLink"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+              </a>
+              <div
+                class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                aria-labelledby="dropdownMenuLink"
+              >
+                <div class="dropdown-header">Dropdown Header:</div>
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </div>
+          </div>
+          <!-- Card Body -->
+          <div class="card-body">
+            <line-chart
+              class="chart-pie pt-4 pb-2"
+              :options="lineOptions"
+              :chartData="lineData"
+            ></line-chart>
+            <div class="mt-4 text-center small">
+              <span class="mr-2">
+                Overall lead accumulation for the past 7 days
               </span>
             </div>
           </div>
@@ -331,15 +348,18 @@
 import SideBarPartial from "~/components/partials/SideBarPartial";
 import NavBarPartial from "~/components/partials/NavBarPartial";
 import PieChart from "~/components/charts/PieChart";
+import LineChart from "~/components/charts/LineChart";
 export default {
   middleware: "auth",
   components: {
     SideBarPartial,
     NavBarPartial,
     PieChart,
+    LineChart,
   },
   data() {
     return {
+      items: null,
       pieOptions: {
         responsive: true,
         maintainAspectRatio: false,
@@ -358,21 +378,87 @@ export default {
         },
         cutoutPercentage: 80,
       },
-      pieData: {
-        labels: ["Won", "Lost", "Ongoing"],
-        datasets: [
-          {
-            data: [55, 30, 15],
-            backgroundColor: ["#4e73df", "#1cc88a", "#36b9cc"],
-            hoverBackgroundColor: ["#2e59d9", "#17a673", "#2c9faf"],
-            hoverBorderColor: "rgba(234, 236, 244, 1)",
-          },
-        ],
+      lineOptions: {
+        responsive: true,
+        maintainAspectRatio: false,
+        tooltips: {
+          backgroundColor: "rgb(255,255,255)",
+          bodyFontColor: "#858796",
+          borderColor: "#dddfeb",
+          borderWidth: 1,
+          xPadding: 15,
+          yPadding: 15,
+          displayColors: false,
+          caretPadding: 10,
+        },
+        legend: {
+          display: false,
+        },
+        cutoutPercentage: 80,
       },
     };
   },
-  methods: {},
-  mounted() {},
+  computed: {
+    pieData: function () {
+      console.log(this.items);
+      try {
+        return {
+          labels: ["In Negotiation", "Initiated", "Won", "Lost"],
+          datasets: [
+            {
+              data: [
+                this.items.leadsInNegotiation,
+                this.items.leadsInitiated,
+                this.items.leadsConverted,
+                this.items.leadsLost,
+              ],
+              backgroundColor: ["#f6c23e", "#4e73df", "#1cc88a", "#e74a3b"],
+              hoverBackgroundColor: [
+                "#d6a936",
+                "#2e59d9",
+                "#17a673",
+                "#e74a3b",
+              ],
+              hoverBorderColor: "rgba(234, 236, 244, 1)",
+            },
+          ],
+        };
+      } catch (error) {}
+    },
+    lineData: function () {
+      if (this.items != null) {
+        // wait till the items data is fetched from the api otherwise an error is thrown
+        let dateLabels = [];
+        let leadCountData = [];
+        this.items.leadsLast7Days.forEach(({ day, count }) => {
+          // loop through the leadsLast7Days array and destructure each object element as day and count
+          dateLabels.unshift(day); // add days to the front of dateLabels array
+          leadCountData.unshift(count);
+        });
+        return {
+          labels: [...dateLabels], // spread the dateLabels array to fill the labels
+          datasets: [
+            {
+              data: [...leadCountData],
+              label: "Leads",
+              borderColor: "#3e95cd",
+              fill: false,
+            },
+          ],
+        };
+      }
+    },
+  },
+  methods: {
+    async fetchData() {
+      const items = await this.$axios.$get("/dashboard");
+      this.items = items;
+      console.log(this.items);
+    },
+  },
+  mounted() {
+    this.fetchData();
+  },
 };
 </script>
 
