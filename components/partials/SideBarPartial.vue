@@ -166,12 +166,12 @@ export default {
             name: "Bookings",
             modules: [
               {
-                name: "Custom Booking",
+                name: "Bookings",
                 link: "/error/wip",
                 iconClass: "fas fa-fw fa-plane",
               },
               {
-                name: "Package Booking",
+                name: "Templates",
                 link: "/error/wip",
                 iconClass: "fas fa-fw fa-cubes",
               },
