@@ -400,7 +400,7 @@ export default {
   },
   computed: {
     pieData: function () {
-      console.log(this.items);
+      // console.log(this.items);
       try {
         return {
           labels: ["In Negotiation", "Initiated", "Won", "Lost"],
@@ -453,7 +453,7 @@ export default {
     async fetchData() {
       const items = await this.$axios.$get("/dashboard");
       this.items = items;
-      console.log(this.items);
+      // console.log(this.items);
     },
   },
   mounted() {
