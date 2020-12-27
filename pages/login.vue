@@ -54,7 +54,7 @@
               </button>
               <div>
                 Click here to
-                <nuxt-link to="/register">Sign up</nuxt-link>
+                <a href="https://torgoclientd48b6f44-d48b6f44-dev.auth.us-east-1.amazoncognito.com/signup?response_type=token&client_id=1ifgbgnfmegvvfd96s1q394s2g&redirect_uri=http://localhost:3000/login">Sign up</a>
               </div>
             </form>
             <div class="login-choice"><span>or Sign In with</span></div>
@@ -84,14 +84,15 @@ export default {
   methods: {
     async loginWithCredentials() {
       try {
-        await this.$auth.loginWith("local", {
+        await this.$auth.loginWith("cognito", {
           data: {
-            email: this.email,
+            username: this.email,
             password: this.password,
           },
         });
         this.$router.push("/");
       } catch (e) {
+        console.log(e)
         this.error = e.response.data.message;
       }
     },

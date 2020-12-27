@@ -70,12 +70,16 @@ export default {
     'bootstrap-vue/nuxt',
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    '@sirdiego/nuxt-auth-cognito-scheme',
     '@nuxtjs/auth'
   ],
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
+  // axios: {
+  //   baseURL: development ? 'https://zbh3b5x7d2.execute-api.us-east-1.amazonaws.com/dev' : 'https://torgo-desk.herokuapp.com/api/v1'
+  // },
   axios: {
     baseURL: development ? 'http://127.0.0.1:3333/api/v1' : 'https://torgo-desk.herokuapp.com/api/v1'
   },
@@ -98,10 +102,23 @@ export default {
       google: {
         client_id: '219658332401-ae7gcsb4dd28r692vrhaq6i3c4hdmt0j.apps.googleusercontent.com'
       },
+      cognito: {
+        tokenType: "Bearer",
+        globalToken: true,
+        tokenRequired: true,
+        tokenName: "Authorization",
+        autoFetchUser: true,
+        userPoolId: 'us-east-1_K5peDTrVn',
+        clientId: 'd4tmv37kveqvtk3fke0k6o1lp',
+        refreshInterval: 5 * 60 * 1000, // Set to 0 to disable the browser interval
+        fetchUserCallback: false // Can be used to put more information into the user object
+      }
     },
     plugins: ['~plugins/auth.js'],
     redirect: {
       login: '/login',
+      // login: 'https://torgoclientd48b6f44-d48b6f44-dev.auth.us-east-1.amazoncognito.com/login?response_type=token&client_id=1ifgbgnfmegvvfd96s1q394s2g&redirect_uri=http://localhost:3000/login',
+      // logout: 'https://torgoclientd48b6f44-d48b6f44-dev.auth.us-east-1.amazoncognito.com/login?response_type=token&client_id=1ifgbgnfmegvvfd96s1q394s2g&redirect_uri=http://localhost:3000/login',
       logout: '/login',
       home: '/countries',
     },
