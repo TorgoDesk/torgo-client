@@ -77,7 +77,7 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    baseURL: development ? 'https://zbh3b5x7d2.execute-api.us-east-1.amazonaws.com/dev' : 'https://torgo-desk.herokuapp.com/api/v1'
+    baseURL: development ? 'http://127.0.0.1:3333/api/v1' : 'https://zbh3b5x7d2.execute-api.us-east-1.amazonaws.com/dev'
   },
   // axios: {
   //   baseURL: development ? 'http://127.0.0.1:3333/api/v1' : 'https://torgo-desk.herokuapp.com/api/v1'
