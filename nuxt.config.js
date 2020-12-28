@@ -70,7 +70,6 @@ export default {
     'bootstrap-vue/nuxt',
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@sirdiego/nuxt-auth-cognito-scheme',
     '@nuxtjs/auth'
   ],
   /*
@@ -103,6 +102,7 @@ export default {
         client_id: '219658332401-ae7gcsb4dd28r692vrhaq6i3c4hdmt0j.apps.googleusercontent.com'
       },
       cognito: {
+        _scheme: '~/services/cognito-auth.js',
         tokenType: "Bearer",
         globalToken: true,
         tokenRequired: true,
