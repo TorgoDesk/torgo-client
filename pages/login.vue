@@ -6,6 +6,7 @@
           <div class="card-body">
             <h5 class="card-title text-center">Sign In</h5>
             <b-alert show variant="danger" v-if="error">{{ error }}</b-alert>
+            <b-alert show variant="warning" v-if="confirmMode">Please reset the password.</b-alert>
             <form
               class="form-signin"
               method="post"
@@ -21,10 +22,11 @@
                   v-model="email"
                   required
                   autofocus
+                  :disabled="confirmMode"
                 />
               </div>
 
-              <div class="form-label-group mb-2">
+              <div class="form-label-group mb-2" v-if="!confirmMode">
                 <label for="inputPassword">Password</label>
                 <input
                   type="password"
@@ -32,6 +34,18 @@
                   id="inputPassword"
                   class="form-control"
                   placeholder="Password"
+                  required
+                />
+              </div>
+
+              <div class="form-label-group mb-2" v-if="confirmMode">
+                <label for="inputNewPassword">New Password</label>
+                <input
+                  type="password"
+                  v-model="newPassword"
+                  id="inputNewtPassword"
+                  class="form-control"
+                  placeholder="New Password"
                   required
                 />
               </div>
@@ -68,29 +82,51 @@
 
 <script>
 import SocialLogin from "@/components/SocialLogin";
+import { mapGetters } from "vuex";
 export default {
   layout: "auth",
   middleware: "guest",
   components: {
     SocialLogin,
   },
+  computed: {
+    ...mapGetters(["loggedInUser"]),
+  },
   data() {
     return {
       email: "",
       password: "",
+      newPassword: "",
       error: null,
+      confirmMode: false
     };
   },
   methods: {
     async loginWithCredentials() {
       try {
-        await this.$auth.loginWith("cognito", {
+        const resp = await this.$auth.loginWith("cognito", {
           data: {
             username: this.email,
             password: this.password,
+            newPassword: this.newPassword
           },
         });
-        this.$router.push("/");
+        if (resp.newPasswordRequired) {
+          this.confirmMode = true
+
+        } else {
+          this.confirmMode = false
+          if (this.loggedInUser != null) {
+            const response = await this.$axios.$post("/profiles",
+              {
+                username: this.loggedInUser.sub,
+                name: this.loggedInUser.name
+              }
+            )
+          }
+          this.$router.push("/");
+        }
+        
       } catch (e) {
         console.log(e)
         this.error = e.response.data.message;

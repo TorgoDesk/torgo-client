@@ -308,7 +308,7 @@ export default {
     async fetchUserProfile() {
       var vm = this;
       try {
-        vm.$store.dispatch("fetchUserProfile", this.loggedInUser.id);
+        vm.$store.dispatch("fetchUserProfile", this.loggedInUser.sub);
       } catch (error) {
         console.error(error);
       }
