@@ -205,6 +205,8 @@ export default class CognitoAuthScheme {
           if (NewPassword == undefined || NewPassword === '') {
             resolve({ newPasswordRequired: true })
           }
+          // delete immutable fields
+          delete userAttributes.email_verified;
           cognitoUser.completeNewPasswordChallenge(NewPassword, userAttributes, this);
         },
       });

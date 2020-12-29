@@ -64,15 +64,9 @@
                 class="btn btn-lg btn-primary btn-block text-uppercase"
                 type="submit"
               >
-                Sign in
+                {{ submitBtnText }}
               </button>
-              <div>
-                Click here to
-                <a href="https://torgoclientd48b6f44-d48b6f44-dev.auth.us-east-1.amazoncognito.com/signup?response_type=token&client_id=1ifgbgnfmegvvfd96s1q394s2g&redirect_uri=http://localhost:3000/login">Sign up</a>
-              </div>
-            </form>
-            <div class="login-choice"><span>or Sign In with</span></div>
-            <SocialLogin />
+            </form> 
           </div>
         </div>
       </div>
@@ -87,10 +81,17 @@ export default {
   layout: "auth",
   middleware: "guest",
   components: {
-    SocialLogin,
+    
   },
   computed: {
     ...mapGetters(["loggedInUser"]),
+    submitBtnText() {
+      if (this.confirmMode) {
+        return 'Reset Password'
+      } else {
+        return 'Sign in'
+      }
+    }
   },
   data() {
     return {
@@ -101,9 +102,13 @@ export default {
       confirmMode: false
     };
   },
+  mounted() {
+    confirmMode: false
+  },
   methods: {
     async loginWithCredentials() {
       try {
+        this.error = null
         const resp = await this.$auth.loginWith("cognito", {
           data: {
             username: this.email,
@@ -112,24 +117,28 @@ export default {
           },
         });
         if (resp.newPasswordRequired) {
+          // if this is the first time login, need to confirm with a new password
           this.confirmMode = true
 
         } else {
           this.confirmMode = false
-          if (this.loggedInUser != null) {
+          
+          if (this.loggedInUser) {
+            // This call will create a profile if it is a first time login
             const response = await this.$axios.$post("/profiles",
               {
                 username: this.loggedInUser.sub,
                 name: this.loggedInUser.name
               }
             )
+            this.$router.push("/");
+          } else {
+            this.error = resp.message
           }
-          this.$router.push("/");
         }
         
       } catch (e) {
-        console.log(e)
-        this.error = e.response.data.message;
+        this.error = e.message;
       }
     },
   },
