@@ -26,7 +26,7 @@
                 </div>
                 <div class="h5 mb-0 font-weight-bold text-gray-800">
                   <!-- {{ users.length }} -->
-                  1
+                  {{ userMetrics.total }}
                 </div>
               </div>
               <div class="col-auto">
@@ -37,30 +37,7 @@
         </div>
       </div>
 
-      <!-- Users joined last month -->
-      <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-success shadow h-100 py-2">
-          <div class="card-body">
-            <div class="row no-gutters align-items-center">
-              <div class="col mr-2">
-                <div
-                  class="text-xs font-weight-bold text-success text-uppercase mb-1"
-                >
-                  Users joined (Native)
-                </div>
-                <div class="h5 mb-0 font-weight-bold text-gray-800">
-                  {{ userMetrics.native }}
-                </div>
-              </div>
-              <div class="col-auto">
-                <i class="fas fa-user fa-2x text-gray-300"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Users signed in with OAuth platforms -->
+      <!-- Number of admin user accounts -->
       <div class="col-xl-3 col-md-6 mb-4">
         <div class="card border-left-danger shadow h-100 py-2">
           <div class="card-body">
@@ -69,21 +46,44 @@
                 <div
                   class="text-xs font-weight-bold text-danger text-uppercase mb-1"
                 >
-                  Users joined (Google)
+                  Admin users
                 </div>
                 <div class="h5 mb-0 font-weight-bold text-gray-800">
-                  {{ userMetrics.google }}
+                  {{ userMetrics.admin }}
                 </div>
               </div>
               <div class="col-auto">
-                <i class="fab fa-google fa-2x text-gray-300"></i>
+                <i class="fas fa-user-shield fa-2x text-gray-300"></i>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Users signed in with OAuth platforms -->
+      <!-- Users who have confirmed their account -->
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div
+                  class="text-xs font-weight-bold text-success text-uppercase mb-1"
+                >
+                  Confirmed Users
+                </div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                  {{ userMetrics.confirmed }}
+                </div>
+              </div>
+              <div class="col-auto">
+                <i class="fas fa-check-circle fa-2x text-gray-300"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Users limit for the organization tier limit -->
       <div class="col-xl-3 col-md-6 mb-4">
         <div class="card border-left-primary shadow h-100 py-2">
           <div class="card-body">
@@ -92,14 +92,14 @@
                 <div
                   class="text-xs font-weight-bold text-primary text-uppercase mb-1"
                 >
-                  Users joined (Facebook)
+                  Tier limit 
                 </div>
                 <div class="h5 mb-0 font-weight-bold text-gray-800">
-                  {{ userMetrics.facebook }}
+                  {{ userMetrics.limit }}
                 </div>
               </div>
               <div class="col-auto">
-                <i class="fab fa-facebook fa-2x text-gray-300"></i>
+                <i class="fas fa-users-cog fa-2x text-gray-300"></i>
               </div>
             </div>
           </div>
@@ -267,9 +267,9 @@ export default {
       error: null,
       userMetrics: {
         total: 0,
-        native: 0,
-        google: 0,
-        facebook: 0,
+        admin: 0,
+        confirmed: 0,
+        limit: 20,
       },
     };
   },
@@ -323,11 +323,11 @@ export default {
             "&name=" +
             this.editSearchQuery.name
         );
-        this.userMetrics = await this.$axios.$get(
-          "/" + this.pageInfo.slug + "/metrics"
-        );
         this.tableCardLoading = false;
         this.users = users;
+        this.userMetrics.total = users.length 
+        this.userMetrics.admin = 1 
+        this.userMetrics.confirmed = users.filter(user  => user.confirmedStatus === 'CONFIRMED').length
         this.perPage = users.perPage;
         this.totalItems = users.total;
       } catch (error) {
