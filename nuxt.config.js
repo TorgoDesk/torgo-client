@@ -117,10 +117,7 @@ export default {
     plugins: ['~plugins/auth.js'],
     redirect: {
       login: '/login',
-      // login: 'https://torgoclientd48b6f44-d48b6f44-dev.auth.us-east-1.amazoncognito.com/login?response_type=token&client_id=1ifgbgnfmegvvfd96s1q394s2g&redirect_uri=http://localhost:3000/login',
-      // logout: 'https://torgoclientd48b6f44-d48b6f44-dev.auth.us-east-1.amazoncognito.com/login?response_type=token&client_id=1ifgbgnfmegvvfd96s1q394s2g&redirect_uri=http://localhost:3000/login',
-      logout: '/login',
-      home: '/countries',
+      home: '/',
     },
   },
 

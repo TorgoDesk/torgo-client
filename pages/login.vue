@@ -122,19 +122,6 @@ export default {
 
         } else {
           this.confirmMode = false
-          
-          if (this.loggedInUser) {
-            // This call will create a profile if it is a first time login
-            const response = await this.$axios.$post("/profiles",
-              {
-                username: this.loggedInUser.sub,
-                name: this.loggedInUser.name
-              }
-            )
-            this.$router.push("/");
-          } else {
-            this.error = resp.message
-          }
         }
         
       } catch (e) {
