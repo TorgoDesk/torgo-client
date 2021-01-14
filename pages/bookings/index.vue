@@ -31,6 +31,11 @@
               <tbody>
                 <tr v-for="item in items" :key="item.id">
                   <td>
+                    <nuxt-link :to="'/bookings/' + item.id">
+                      #{{ item.id }}
+                    </nuxt-link>
+                  </td>
+                  <td>
                     <nuxt-link
                       v-if="item.lead"
                       :to="'/' + 'leads' + '/' + item.lead.id"
@@ -90,7 +95,7 @@
                     <nuxt-link
                       :to="'/' + pageInfo.slug + '/' + item.id"
                       class="btn btn-primary btn-xs"
-                      ><i class="fas fa-eye fa-sm fa-fw"></i> Show</nuxt-link
+                      ><i class="fas fa-eye fa-sm fa-fw"></i> View</nuxt-link
                     >
                   </td>
                   <td>
@@ -189,6 +194,7 @@ export default {
         searchTitle: "Search Booking",
       },
       headers: [
+        "Booking Id",
         "Lead",
         "Pax Count",
         "Progress",

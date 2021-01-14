@@ -107,7 +107,12 @@
         </div>
       </div>
     </div>
-    <booking-form @submited="fetchItem" :lead="item"></booking-form>
+    <booking-form
+      @submited="fetchItem"
+      :item="item"
+      :isEdit="true"
+      :lead="this.item.lead"
+    ></booking-form>
   </div>
 </template>
 
@@ -126,6 +131,7 @@ export default {
     NoteForm,
     StatusWidget,
     StatusCard,
+    BookingForm,
   },
   data() {
     return {
