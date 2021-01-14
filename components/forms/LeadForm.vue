@@ -57,7 +57,7 @@
               ></b-form-input>
             </b-form-group>
           </div>
-          <div class="col-xl-6">
+          <div class="col-xl-3">
             <b-form-group id="input-group-2" label="Age:" label-for="input-2">
               <b-form-input
                 id="input-2"
@@ -67,6 +67,30 @@
                 placeholder="Enter age"
               ></b-form-input>
             </b-form-group>
+          </div>
+          <div class="col-xl-3">
+            <label for="example-input">Date of Birth:</label>
+            <b-input-group class="mb-3">
+              <b-form-input
+                id="example-input"
+                v-model="editItem.dob"
+                type="text"
+                placeholder="DD/MM/YYYY"
+                autocomplete="off"
+                size="sm"
+              ></b-form-input>
+              <b-input-group-append>
+                <b-form-datepicker
+                  size="sm"
+                  v-model="editItem.dob"
+                  button-only
+                  button-variant="primary"
+                  right
+                  locale="en"
+                  aria-controls="example-input"
+                ></b-form-datepicker>
+              </b-input-group-append>
+            </b-input-group>
           </div>
         </div>
         <div class="row">
@@ -128,18 +152,19 @@
             </b-form-group>
           </div>
           <div class="col-xl-6">
-            <b-form-group id="input-group-2" label="Rating" label-for="input-2"
-              ><b-form-select
-                id="input-2"
-                v-model="editItem.stars_rating"
-                required
+            <b-form-group
+              id="input-group-2"
+              label="Address:"
+              label-for="input-2"
+            >
+              <b-form-textarea
+                id="textarea"
+                v-model="editItem.address"
+                placeholder="Enter something..."
+                rows="3"
                 size="sm"
-                placeholder="Enter code"
-              >
-                <b-form-select-option v-for="n in 5" :value="n" :key="n">
-                  {{ n }}
-                </b-form-select-option>
-              </b-form-select>
+                max-rows="6"
+              ></b-form-textarea>
             </b-form-group>
           </div>
         </div>
@@ -156,6 +181,21 @@
                 text-field="name"
                 placeholder="Select Status"
               >
+              </b-form-select>
+            </b-form-group>
+          </div>
+          <div class="col-xl-6">
+            <b-form-group id="input-group-2" label="Rating" label-for="input-2"
+              ><b-form-select
+                id="input-2"
+                v-model="editItem.stars_rating"
+                required
+                size="sm"
+                placeholder="Enter code"
+              >
+                <b-form-select-option v-for="n in 5" :value="n" :key="n">
+                  {{ n }}
+                </b-form-select-option>
               </b-form-select>
             </b-form-group>
           </div>
@@ -176,6 +216,7 @@
 </template>
 
 <script>
+import moment from "moment";
 export default {
   props: {
     editItemId: {
@@ -193,6 +234,9 @@ export default {
           country_id: "",
           description: "",
           age: "",
+          dob: "",
+          telephone: "",
+          address: "",
           status: "",
           stars_rating: "",
           created_at: "",
@@ -217,6 +261,9 @@ export default {
         country_id: "",
         description: "",
         age: "",
+        dob: "",
+        telephone: "",
+        address: "",
         status: "",
         stars_rating: "",
         created_at: "",
@@ -230,6 +277,9 @@ export default {
         country_id: "",
         description: "",
         age: "",
+        dob: "",
+        telephone: "",
+        address: "",
         status: "",
         stars_rating: "",
         created_at: "",
@@ -278,8 +328,10 @@ export default {
   },
   watch: {
     item() {
+      var date = moment(this.item.dob);
       this.editItem = Object.assign({}, this.item);
       this.defaultItem = Object.assign({}, this.item);
+      this.item.dob = date.format("YYYY-MM-DD");
     },
   },
   methods: {

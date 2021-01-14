@@ -58,3 +58,46 @@ a {
     font-weight: 800;
   }
 }
+
+// .btn-group-xs > .btn,
+// .btn-xs {
+//   padding: 0.25rem 0.4rem;
+//   font-size: 0.875rem;
+//   line-height: 0.5;
+//   border-radius: 0.2rem;
+// }
+
+.btn-group-xs {
+	>.btn {
+		padding: 0.25rem 0.4rem;
+		font-size: 0.875rem;
+		line-height: 0.5;
+		border-radius: 0.2rem;
+	}
+}
+.btn-xs {
+	padding: 0.25rem 0.4rem;
+	font-size: 0.875rem;
+	line-height: 0.5;
+	border-radius: 0.2rem;
+}
+
+// .table-hover tbody tr:hover td,
+// .table-hover tbody tr:hover th {
+//   background-color: #f8f4ff;
+// }
+
+.table-hover {
+	tbody {
+		tr {
+			&:hover {
+				td {
+					background-color: $gray-100;
+				}
+				th {
+					background-color: $gray-100;
+				}
+			}
+		}
+	}
+}
