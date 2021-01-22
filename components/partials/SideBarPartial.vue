@@ -42,7 +42,7 @@
         aria-expanded="true"
         aria-controls="collapsePages"
       >
-        <i class="fas fa-fw fa-folder"></i>
+        <i class="fas fa-fw fa-list"></i>
         <span>{{ bookingsMaster.name }}</span>
       </a>
       <div
@@ -163,21 +163,6 @@ export default {
         name: "Bookings Master",
         subSections: [
           {
-            name: "Bookings",
-            modules: [
-              {
-                name: "Bookings",
-                link: "/error/wip",
-                iconClass: "fas fa-fw fa-plane",
-              },
-              {
-                name: "Templates",
-                link: "/error/wip",
-                iconClass: "fas fa-fw fa-cubes",
-              },
-            ],
-          },
-          {
             name: "Leads",
             modules: [
               {
@@ -185,6 +170,21 @@ export default {
                 link: "/leads",
                 iconClass: "fas fa-fw fa-users",
                 colorClass: "badge badge-primary",
+              },
+            ],
+          },
+          {
+            name: "Bookings",
+            modules: [
+              {
+                name: "Bookings",
+                link: "/bookings",
+                iconClass: "fas fa-fw fa-plane",
+              },
+              {
+                name: "Templates",
+                link: "/error/wip",
+                iconClass: "fas fa-fw fa-cubes",
               },
             ],
           },

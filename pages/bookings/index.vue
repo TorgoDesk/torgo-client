@@ -19,7 +19,7 @@
           <template v-slot:card-body>
             <b-alert v-if="error" show variant="danger">{{ error }}</b-alert>
             <!-- Table  -->
-            <table class="table table-sm">
+            <table class="table table-sm table-hover">
               <thead>
                 <tr class="bg-primary text-light">
                   <th v-for="(value, key) in headers" :key="key" scope="col">
@@ -31,37 +31,48 @@
               <tbody>
                 <tr v-for="item in items" :key="item.id">
                   <td>
-                    <nuxt-link :to="'/' + pageInfo.slug + '/' + item.id"
-                      >{{ item.first_name }} {{ item.last_name }} </nuxt-link
-                    ><span
-                      v-if="item.status == 4"
-                      class="badge bg-success text-white"
-                      >Converted</span
-                    >
-                    <span
-                      v-if="item.status == 5"
-                      class="badge bg-danger text-white"
-                      >Lost</span
-                    >
-                  </td>
-                  <td>
-                    <stars-rating :stars="item.stars_rating"></stars-rating>
-                  </td>
-                  <td>
-                    {{ item.email }}
-                  </td>
-                  <td>
-                    {{ item.age }}
+                    <nuxt-link :to="'/bookings/' + item.id">
+                      #{{ item.id }}
+                    </nuxt-link>
                   </td>
                   <td>
                     <nuxt-link
-                      v-if="item.country"
-                      :to="'/' + 'countries' + '/' + item.country.id"
-                      >{{ item.country.name }}</nuxt-link
+                      v-if="item.lead"
+                      :to="'/' + 'leads' + '/' + item.lead.id"
+                      >{{ item.lead.first_name }}
+                      {{ item.lead.last_name }}</nuxt-link
                     >
                   </td>
+
                   <td>
-                    <div v-if="item.owner" class="dropdown-list-image mr-3">
+                    {{ item.pax_count }}
+                  </td>
+                  <td>
+                    <div class="mt-1">
+                      <b-progress
+                        :value="
+                          generateProgressBarData(
+                            Math.floor(Math.random() * 100 + 1)
+                          ).value
+                        "
+                        :max="100"
+                        :variant="
+                          generateProgressBarData(
+                            Math.floor(Math.random() * 100 + 1)
+                          ).variant
+                        "
+                        animated
+                      ></b-progress>
+                    </div>
+                  </td>
+                  <td>
+                    {{ item.from_date }}
+                  </td>
+                  <td>
+                    {{ item.to_date }}
+                  </td>
+                  <td>
+                    <div v-if="item.owner" class="dropdown-list-image">
                       <img
                         class="rounded-circle"
                         style="height: 2rem; width: 2rem"
@@ -79,6 +90,13 @@
                       />
                       <span class="ml-1 text-danger">No Owner</span>
                     </div>
+                  </td>
+                  <td>
+                    <nuxt-link
+                      :to="'/' + pageInfo.slug + '/' + item.id"
+                      class="btn btn-primary btn-xs"
+                      ><i class="fas fa-eye fa-sm fa-fw"></i> View</nuxt-link
+                    >
                   </td>
                   <td>
                     <div class="dropdown no-arrow">
@@ -167,15 +185,24 @@ export default {
   data() {
     return {
       pageInfo: {
-        slug: "leads",
+        slug: "bookings",
       },
       tableCardInfo: {
-        tableTitle: "Leads List",
+        tableTitle: "Booking List",
       },
       searchCardInfo: {
-        searchTitle: "Search Hotels",
+        searchTitle: "Search Booking",
       },
-      headers: ["Full Name", "Rating", "Email", "Age", "Country", "Owner"],
+      headers: [
+        "Booking Id",
+        "Lead",
+        "Pax Count",
+        "Progress",
+        "From",
+        "To",
+        "Owner",
+        "Booking",
+      ],
       items: null,
       show: true,
       currentPage: 1,
@@ -193,6 +220,12 @@ export default {
   },
 
   methods: {
+    generateProgressBarData(value) {
+      return {
+        value: value,
+        variant: value < 50 ? "primary" : "success",
+      };
+    },
     async deleteItem(deleteId) {
       try {
         const deletedItem = await this.$axios.$delete(
@@ -214,8 +247,9 @@ export default {
             "&name=" +
             this.editSearchQuery.name
         );
+        console.log(items);
         this.tableCardLoading = false;
-        this.items = items.data;
+        this.items = items;
         this.perPage = items.perPage;
         this.totalItems = items.total;
       } catch (error) {
