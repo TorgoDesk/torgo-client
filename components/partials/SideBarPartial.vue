@@ -301,7 +301,6 @@ export default {
     linkActive(path) {
       var active = "active";
       if (this.$route.path === path) {
-        console.log(active);
         return {
           activeClass: "active",
         };

@@ -6,6 +6,7 @@
           <div class="card-body">
             <h5 class="card-title text-center">Sign In</h5>
             <b-alert show variant="danger" v-if="error">{{ error }}</b-alert>
+            <b-alert show variant="warning" v-if="confirmMode">Please reset the password.</b-alert>
             <form
               class="form-signin"
               method="post"
@@ -21,10 +22,11 @@
                   v-model="email"
                   required
                   autofocus
+                  :disabled="confirmMode"
                 />
               </div>
 
-              <div class="form-label-group mb-2">
+              <div class="form-label-group mb-2" v-if="!confirmMode">
                 <label for="inputPassword">Password</label>
                 <input
                   type="password"
@@ -32,6 +34,18 @@
                   id="inputPassword"
                   class="form-control"
                   placeholder="Password"
+                  required
+                />
+              </div>
+
+              <div class="form-label-group mb-2" v-if="confirmMode">
+                <label for="inputNewPassword">New Password</label>
+                <input
+                  type="password"
+                  v-model="newPassword"
+                  id="inputNewtPassword"
+                  class="form-control"
+                  placeholder="New Password"
                   required
                 />
               </div>
@@ -50,15 +64,9 @@
                 class="btn btn-lg btn-primary btn-block text-uppercase"
                 type="submit"
               >
-                Sign in
+                {{ submitBtnText }}
               </button>
-              <div>
-                Click here to
-                <nuxt-link to="/register">Sign up</nuxt-link>
-              </div>
-            </form>
-            <div class="login-choice"><span>or Sign In with</span></div>
-            <SocialLogin />
+            </form> 
           </div>
         </div>
       </div>
@@ -68,31 +76,56 @@
 
 <script>
 import SocialLogin from "@/components/SocialLogin";
+import { mapGetters } from "vuex";
 export default {
   layout: "auth",
   middleware: "guest",
   components: {
-    SocialLogin,
+    
+  },
+  computed: {
+    ...mapGetters(["loggedInUser"]),
+    submitBtnText() {
+      if (this.confirmMode) {
+        return 'Reset Password'
+      } else {
+        return 'Sign in'
+      }
+    }
   },
   data() {
     return {
       email: "",
       password: "",
+      newPassword: "",
       error: null,
+      confirmMode: false
     };
+  },
+  mounted() {
+    confirmMode: false
   },
   methods: {
     async loginWithCredentials() {
       try {
-        await this.$auth.loginWith("local", {
+        this.error = null
+        const resp = await this.$auth.loginWith("cognito", {
           data: {
-            email: this.email,
+            username: this.email,
             password: this.password,
+            newPassword: this.newPassword
           },
         });
-        this.$router.push("/");
+        if (resp.newPasswordRequired) {
+          // if this is the first time login, need to confirm with a new password
+          this.confirmMode = true
+
+        } else {
+          this.confirmMode = false
+        }
+        
       } catch (e) {
-        this.error = e.response.data.message;
+        this.error = e.message;
       }
     },
   },

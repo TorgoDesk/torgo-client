@@ -77,8 +77,11 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    baseURL: development ? 'http://127.0.0.1:3333/api/v1' : 'https://torgo-desk.herokuapp.com/api/v1'
+    baseURL: development ? 'http://127.0.0.1:3333/api/v1' : 'https://zbh3b5x7d2.execute-api.us-east-1.amazonaws.com/dev'
   },
+  // axios: {
+  //   baseURL: development ? 'http://127.0.0.1:3333/api/v1' : 'https://torgo-desk.herokuapp.com/api/v1'
+  // },
   /*
   ** Build configuration
   ** See https://nuxtjs.org/api/configuration-build/
@@ -98,12 +101,23 @@ export default {
       google: {
         client_id: '219658332401-ae7gcsb4dd28r692vrhaq6i3c4hdmt0j.apps.googleusercontent.com'
       },
+      cognito: {
+        _scheme: '~/services/cognito-auth.js',
+        tokenType: "Bearer",
+        globalToken: true,
+        tokenRequired: true,
+        tokenName: "Authorization",
+        autoFetchUser: true,
+        userPoolId: 'us-east-1_K5peDTrVn',
+        clientId: 'd4tmv37kveqvtk3fke0k6o1lp',
+        refreshInterval: 5 * 60 * 1000, // Set to 0 to disable the browser interval
+        fetchUserCallback: false // Can be used to put more information into the user object
+      }
     },
     plugins: ['~plugins/auth.js'],
     redirect: {
       login: '/login',
-      logout: '/login',
-      home: '/countries',
+      home: '/',
     },
   },
 
